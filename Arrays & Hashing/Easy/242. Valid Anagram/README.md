@@ -4,23 +4,23 @@
 
 ## 1. Algorithm Used
 
-Frequency map comparison using `Counter` on both strings.
+Hash Map (Counter) frequency comparison.
 
 ## 2. How to Recognize the Pattern
 
-- "same characters, possibly different order" → compare character frequencies → Counter.
-- Strings of different lengths can never be anagrams → early exit on length mismatch.
-- Equality of two Counters is a direct O(k) check where k is the alphabet size.
+- "Are two strings anagrams?" → same characters, same counts, different order → frequency counting.
+- Comparing character-by-character or sorting both strings works, but counting frequencies is the most direct approach.
+- Brute force (sorting) is O(n log n). A frequency map does it in O(n).
 
 ## 3. Why This Algorithm Fits
 
-- O(n) time — building each Counter is a single pass; comparing them is O(k) where k ≤ 26 for lowercase letters.
-- O(k) space — each Counter holds at most k distinct characters.
-- Counter comparison is cleaner and less error-prone than manually tracking differences.
+- O(n) time — one pass to build each counter, one pass to compare.
+- O(1) space — at most 26 lowercase letters, so the map size is bounded.
+- Early exit on length mismatch avoids unnecessary work.
 
 ## 4. How It Works
 
-After an early-exit length check, build a `Counter` for each string. Then iterate over the characters in one Counter and verify that the count for each character matches in the other. Any mismatch returns False; completing the loop returns True.
+First, if the strings differ in length, they can't be anagrams — return False immediately. Then build a frequency count for each string. Walk through one counter and check that every character appears the same number of times in the other. If any count differs, return False. If the loop completes, they're anagrams.
 
 ```python
 if len(s) != len(t):
@@ -33,4 +33,4 @@ for char, val in t_hashset.items():
 return True
 ```
 
-The length check is a cheap guard that eliminates the most obvious non-anagram case before any counting work is done.
+Since both strings are the same length and every character in `t` matches the count in `s`, there's no way `s` has leftover characters — so checking one direction is enough.
