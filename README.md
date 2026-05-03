@@ -35,17 +35,17 @@
 
 ---
 
-A practical guide for engineers preparing for technical interviews. This isn't a catalog of algorithms — it's a framework for thinking. The goal is to get you from "I read the problem" to "I know what to try and why" as fast as possible.
+My personal notes on algorithmic thinking — not a catalog of algorithms, but a framework for reasoning through problems. The goal is to go from reading a problem to knowing what to try and why.
 
 ---
 
 ## 1. How to Read a Problem
 
-Most interview failures happen before a single line of code is written. The problem statement contains everything you need — if you know what to look for.
+The problem statement contains everything needed — the key is knowing what to look for before writing any code.
 
 ### Read for structure, not just content
 
-When you first read a problem, resist the urge to immediately pattern-match to a solution. Instead, extract the structural facts:
+On first read, resist immediately pattern-matching to a solution. Extract the structural facts first:
 
 - **What is the input?** Type, size, constraints (sorted? distinct? non-negative?).
 - **What is the output?** A value, an index, a modified array, a boolean?
@@ -64,15 +64,15 @@ k <= n          → k is bounded, can iterate over it
 
 ### Identify what's fixed and what varies
 
-In sliding window problems, the window moves but the constraint stays fixed. In two-pointer problems, the pointers move but the target stays fixed. Identifying the invariant tells you what to maintain as state.
+In sliding window problems, the window moves but the constraint stays fixed. In two-pointer problems, the pointers move but the target stays fixed. Identifying the invariant clarifies what to maintain as state.
 
 ### Restate the problem in one sentence
 
-Before writing code, say out loud: "Given X, find Y such that Z." If you can't do this cleanly, you don't understand the problem yet.
+Before writing code, restate it as: "Given X, find Y such that Z." If that's not clean, the problem isn't fully understood yet.
 
 ### Check the examples — then construct your own
 
-The provided examples are usually the happy path. Construct your own edge cases:
+The provided examples are usually the happy path. Also check:
 - Empty input
 - Single element
 - All elements identical
@@ -163,7 +163,7 @@ def productExceptSelf(nums):
 
 ### The carry-forward test
 
-Ask: "What state do I need to carry from index `i` to index `i+1`?" If the answer is a fixed-size structure (counter, running sum, stack, hash map), a single pass is likely viable.
+Ask: "What state needs to carry from index `i` to index `i+1`?" If the answer is a fixed-size structure (counter, running sum, stack, hash map), a single pass is likely viable.
 
 ### One-pass with two pointers
 
@@ -218,7 +218,7 @@ while i < len(chars):
     # write char and count...
 ```
 
-**Off-by-one note:** When comparing `nums[i]` to `nums[i+1]`, your loop must stop at `len(nums) - 1`.
+**Off-by-one note:** When comparing `nums[i]` to `nums[i+1]`, the loop must stop at `len(nums) - 1`.
 
 ### Comparing to element behind (i-1)
 
@@ -258,7 +258,7 @@ def twoSum(numbers, target):
 
 ## 5. Index Management
 
-Index bugs are the most common source of wrong answers on problems you conceptually understand.
+Index bugs are the most common source of wrong answers on problems that are conceptually understood.
 
 ### When to start at index 0 vs 1
 
@@ -268,7 +268,7 @@ Index bugs are the most common source of wrong answers on problems you conceptua
 
 **Start at 1** when:
 - Comparing `nums[i]` to `nums[i-1]` — starting at 0 would access `nums[-1]`
-- You've already processed the first element as initialization
+- The first element has already been processed as initialization
 
 ```python
 # Prefix sum — index 0 is a sentinel
@@ -284,17 +284,17 @@ range_sum = prefix[r + 1] - prefix[l]
 
 **Fence-post errors:** An array of `n` elements has `n-1` adjacent pairs. A loop `for i in range(n-1)` iterates over those pairs via `(nums[i], nums[i+1])`.
 
-**Boundary inclusion errors:** When your loop condition is `while left < right`, the loop stops when `left == right` — that element is not processed. Is that correct for your problem?
+**Boundary inclusion errors:** When the loop condition is `while left < right`, the loop stops when `left == right` — that element is not processed. Worth checking whether that's correct for the problem.
 
 **A reliable technique:** Trace through a 2-element or 3-element example by hand.
 
 ### Boundary conditions
 
-- **Empty input:** Does your code handle `len(nums) == 0`? Many algorithms initialize with `nums[0]` — this crashes on empty input.
+- **Empty input:** Does the code handle `len(nums) == 0`? Many algorithms initialize with `nums[0]` — this crashes on empty input.
 - **Single element:** A loop `for i in range(1, len(nums))` never executes on a single-element array.
 - **Two-pointer termination:** `while left < right` is almost always correct. Using `<=` causes pointers to cross.
 
-**The exclusive-right mental model:** Think of your window as `[left, right)`. Then `right - left` is always the window size, and `right == len(s)` is the natural termination condition.
+**The exclusive-right mental model:** Think of the window as `[left, right)`. Then `right - left` is always the window size, and `right == len(s)` is the natural termination condition.
 
 ---
 
@@ -393,7 +393,7 @@ If n ≤ 1000, an O(n^2) solution is fine (10^6 operations). Don't optimize prem
 
 1. **Read the problem twice.** Once for content, once for constraints.
 2. **Ask clarifying questions.** Eliminate ambiguity that would force a rewrite later.
-3. **State your understanding.** "So I need to find the length of the longest subarray where the sum is at most k — is that right?"
+3. **State your understanding.** e.g. "So I need to find the length of the longest subarray where the sum is at most k — is that right?"
 4. **Work through the examples.** Trace the provided examples by hand. Construct one edge case.
 
 ### Clarifying questions worth asking
@@ -402,27 +402,27 @@ If n ≤ 1000, an O(n^2) solution is fine (10^6 operations). Don't optimize prem
 - "Can values be negative?" — affects sliding window viability
 - "Is the array sorted?" — enables two pointers or binary search
 - "Are values distinct?" — simplifies duplicate handling
-- "What should I return if there's no valid answer?"
+- "What should be returned if there's no valid answer?"
 
 ### Thinking out loud
 
-Narrate your reasoning, not your code.
+Narrate the reasoning, not the code.
 
-**Good:** "I'm noticing the array is sorted, which means I can use two pointers instead of a hash map — that gets me from O(n) space to O(1) space."
+**Good:** "The array is sorted, so two pointers work here instead of a hash map — that drops space from O(n) to O(1)."
 
-**Bad:** "I'm writing a for loop that goes from 0 to n..."
+**Bad:** "Writing a for loop that goes from 0 to n..."
 
 ### The solution progression
 
 1. **Brute force first** — state it, give its complexity, explain why it's too slow.
-2. **Identify the bottleneck** — "The O(n^2) comes from the inner loop. If I precompute a hash map, that becomes O(1)."
+2. **Identify the bottleneck** — "The O(n^2) comes from the inner loop. Precomputing a hash map makes that O(1)."
 3. **Propose the optimized approach** — explain the key insight before coding.
 4. **Code the optimized solution** — clean, readable, meaningful variable names.
-5. **Test with examples** — trace through the provided example and your edge case.
+5. **Test with examples** — trace through the provided example and an edge case.
 
 ### Handling edge cases
 
-After your solution passes the main example, explicitly check:
+After the solution passes the main example, explicitly check:
 
 ```
 □ Empty input
@@ -444,13 +444,13 @@ After your solution passes the main example, explicitly check:
 | Testing + edge cases | 5–7 min |
 | Questions for interviewer | 2–3 min |
 
-### When you're stuck
+### When stuck
 
 1. Go back to the examples. Trace them slowly.
 2. Simplify the problem. What if n = 2?
-3. Think about what information you need. "To answer at index i, I need X. Can I precompute X?"
-4. Name the bottleneck. "The slow part is finding Y. Is there a data structure that gives me Y in O(1)?"
-5. Ask for a hint. It's better to ask than to sit in silence.
+3. Think about what information is needed. "To answer at index i, I need X. Can I precompute X?"
+4. Name the bottleneck. "The slow part is finding Y. Is there a data structure that gives Y in O(1)?"
+5. Ask for a hint rather than sitting in silence.
 
 ---
 
