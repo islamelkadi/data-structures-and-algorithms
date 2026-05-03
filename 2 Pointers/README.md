@@ -23,6 +23,11 @@ Two Pointers is a technique where you maintain two index variables that move thr
 
 ## 3. Core Technique(s)
 
+Problems are organized into three subfolders matching these techniques:
+- `Opposite/` — converging pointers from both ends
+- `Read & Write/` — fast/slow same-direction pointers
+- `Two Arrays/` — one pointer per sequence
+
 ### Technique A: Opposite Direction (Converging)
 
 Start `left = 0`, `right = len(arr) - 1`. Move them toward each other based on a comparison.
