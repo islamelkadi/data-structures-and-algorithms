@@ -300,7 +300,11 @@ range_sum = prefix[r + 1] - prefix[l]
 
 ## 6. Constraint-to-Algorithm Mapping
 
+Reading constraints isn't just about knowing the input size — it's about ruling out entire classes of algorithms before writing a single line. The constraints are the problem setter telling you exactly what they expect.
+
 ### Input size constraints
+
+TLE (Time Limit Exceeded) means the solution ran too slowly on LeetCode's test cases. Use `n` to estimate the maximum acceptable complexity before coding.
 
 | Constraint | Max viable complexity | Typical algorithms |
 |---|---|---|
@@ -311,23 +315,88 @@ range_sum = prefix[r + 1] - prefix[l]
 | n ≤ 10^6 | O(n) | Single pass, hash maps, prefix sums |
 | n ≤ 10^9 | O(log n) | Binary search on answer, math |
 
+**How to use this:** multiply the complexity by `n` and check if it exceeds ~10^8 operations. If it does, the approach will TLE.
+
+```
+n = 10^5, algorithm is O(n^2) → 10^10 operations → TLE
+n = 10^5, algorithm is O(n log n) → ~1.7 × 10^6 operations → fine
+```
+
 ### Value constraints
+
+Value constraints narrow down the approach independently of input size.
 
 | Constraint | Implication |
 |---|---|
-| Values in [1, n] | Can use index as hash |
-| Values are non-negative | Sliding window shrink condition is monotone |
-| Values can be negative | Sliding window may not work; use prefix sum + hash |
-| Values are distinct | No duplicate handling needed |
-| Values are bounded (e.g., lowercase letters) | Fixed-size frequency array |
+| Values in [1, n] | Can use the value as an array index (index-as-hash trick) |
+| Values are non-negative | Sliding window shrink condition is monotone — window sum only grows as right expands |
+| Values can be negative | Sliding window may not work; adding an element can decrease the sum, breaking monotonicity. Use prefix sum + hash map instead |
+| Values are distinct | No duplicate handling needed; sets and direct comparisons are safe |
+| Values are bounded (e.g., lowercase letters only) | Use a fixed-size frequency array of size 26 instead of a hash map — faster and simpler |
+| Values are 0 or 1 | Sliding window and prefix sum both work cleanly; bit tricks may apply |
+
+#### The index-as-hash trick
+
+When values are guaranteed to be in `[1, n]`, the array itself can act as a hash map by using the value as an index. This gives O(1) lookup with no extra space.
+
+```python
+# Mark visited values in-place by negating nums[abs(val) - 1]
+def findDuplicates(nums):
+    result = []
+    for val in nums:
+        idx = abs(val) - 1
+        if nums[idx] < 0:
+            result.append(abs(val))
+        else:
+            nums[idx] *= -1
+    return result
+```
+
+#### Negative values break sliding windows
+
+A sliding window works because expanding the window (moving `right`) monotonically increases the running value, and shrinking (moving `left`) monotonically decreases it. Negative numbers break this — adding a negative element can decrease the sum, so there's no longer a clean shrink condition.
+
+```python
+# This does NOT work correctly with negative values:
+def maxSubarraySum(nums, k):
+    left = total = 0
+    for right in range(len(nums)):
+        total += nums[right]
+        while total > k:       # shrink condition is no longer reliable
+            total -= nums[left]
+            left += 1
+```
+
+Use Kadane's algorithm or prefix sum + hash map for subarrays with negative values.
+
+### Array structure constraints
+
+| Constraint | Implication |
+|---|---|
+| Array is sorted | Two pointers or binary search are viable; hash maps may be unnecessary |
+| Array is rotated sorted | Modified binary search (check which half is sorted) |
+| Array has a majority element | Boyer-Moore voting works in O(n) time, O(1) space |
+| Array is a permutation of [1..n] | XOR or sum formula can find missing/duplicate in O(n), O(1) |
+| Matrix rows and columns are sorted | Binary search per row, or staircase search from top-right corner |
+
+### String constraints
+
+| Constraint | Implication |
+|---|---|
+| Only lowercase letters | Fixed 26-size array instead of hash map |
+| Anagram / permutation check | Frequency count comparison; sliding window of fixed size |
+| Palindrome check | Two pointers from both ends, or expand-around-center |
+| Substring search | Sliding window; for exact match use fixed-size window |
 
 ### The "exactly k" trick
 
-Problems asking for subarrays with **exactly k** of something:
+Problems asking for subarrays with **exactly k** of something can't use a plain sliding window because the window can't cleanly shrink when the count hits exactly `k`. The fix:
 
 ```
 count(exactly k) = count(at most k) - count(at most k-1)
 ```
+
+"At most k" is a valid sliding window problem (shrink when count exceeds k). Subtracting the two gives exactly k.
 
 ```python
 def subarraysWithKDistinct(nums, k):
@@ -345,6 +414,19 @@ def subarraysWithKDistinct(nums, k):
         return result
     return at_most(k) - at_most(k - 1)
 ```
+
+This pattern applies to: distinct integers, odd numbers, characters, 1s — anything countable.
+
+### Graph / tree constraints
+
+| Constraint | Implication |
+|---|---|
+| Unweighted graph, shortest path | BFS (guarantees fewest edges) |
+| Weighted graph, shortest path | Dijkstra (non-negative weights) or Bellman-Ford (negative weights) |
+| Detect cycle in directed graph | DFS with a "currently in stack" visited state |
+| Detect cycle in undirected graph | Union-Find or DFS with parent tracking |
+| Tree (n nodes, n-1 edges, connected) | No cycle handling needed; DFS/BFS work directly |
+| Grid traversal | BFS for shortest path; DFS for connected components / flood fill |
 
 ---
 
