@@ -582,7 +582,7 @@ Questions sourced from:
 | # | Title | Difficulty | Solved |
 |---|-------|------------|--------|
 | 26 | Remove Duplicates from Sorted Array | Easy | ✅ |
-| 27 | Remove Element | Easy | ⬜ |
+| 27 | Remove Element | Easy | ✅ |
 | 66 | Plus One | Easy | ⬜ |
 | 88 | Merge Sorted Array | Easy | ✅ |
 | 118 | Pascal's Triangle | Easy | ⬜ |
