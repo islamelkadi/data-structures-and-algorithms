@@ -668,7 +668,7 @@ Questions sourced from:
 | 209 | Minimum Size Subarray Sum | Medium | ✅ |
 | 340 | Longest Substring with At Most K Distinct Characters | Medium | ✅ |
 | 424 | Longest Repeating Character Replacement | Medium | ✅ |
-| 438 | Find All Anagrams in a String | Medium | ⬜ |
+| 438 | Find All Anagrams in a String | Medium | ✅ |
 | 487 | Max Consecutive Ones II | Medium | ✅ |
 | 567 | Permutation in String | Medium | ✅ |
 | 713 | Subarray Product Less Than K | Medium | ✅ |
