@@ -595,7 +595,7 @@ Questions sourced from:
 | 412 | Fizz Buzz | Easy | ✅ |
 | 13 | Roman to Integer | Easy | ✅ |
 | 14 | Longest Common Prefix | Easy | ✅ |
-| 80 | Remove Duplicates from Sorted Array II | Medium | ⬜ |
+| 80 | Remove Duplicates from Sorted Array II | Medium | ✅ |
 | 122 | Best Time to Buy and Sell Stock II | Medium | ⬜ |
 | 128 | Longest Consecutive Sequence | Medium | ✅ |
 | 134 | Gas Station | Medium | ⬜ |
@@ -693,7 +693,7 @@ Questions sourced from:
 | 1480 | Running Sum of 1d Array | Easy | ✅ |
 | 1732 | Find the Highest Altitude | Easy | ✅ |
 | 1991 | Find the Middle Index in Array | Easy | ✅ |
-| 304 | Range Sum Query 2D - Immutable | Medium | ⬜ |
+| 304 | Range Sum Query 2D - Immutable | Medium | ✅ |
 | 325 | Maximum Size Subarray Sum Equals k | Medium | ✅ |
 | 560 | Subarray Sum Equals K | Medium | ✅ |
 | 930 | Binary Subarrays with Sum | Medium | ✅ |

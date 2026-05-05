@@ -159,7 +159,43 @@ The one-pass hashmap approach works because you only need to know "how many time
 | Product except self | O(n) | O(1) extra |
 | Pivot index | O(n) | O(1) |
 
-## 8. Common Pitfalls
+## 8. When to Use Padding vs Not
+
+The need for padding comes down to whether you're doing range queries or just point lookups.
+
+**No padding needed** — if you only need the prefix value at a single point (sum from index 0 to i), you index directly and there's no subtraction risk:
+
+```python
+prefix[i] = prefix[i-1] + nums[i]
+# sum from 0 to i = prefix[i]  ← no subtraction, no boundary issue
+```
+
+**Padding is needed** — when you need arbitrary range queries `sum(l, r)`, you subtract:
+
+```python
+sum(l, r) = prefix[r] - prefix[l-1]
+```
+
+When `l = 0`, `l - 1 = -1` causes an index error. A leading 0 shifts everything right by 1, making `prefix[0] = 0` a safe sentinel:
+
+```python
+sum(l, r) = prefix[r+1] - prefix[l]  # no -1 risk, works for any l
+```
+
+Without padding you'd need an explicit guard every time:
+```python
+left = prefix[l - 1] if l > 0 else 0  # messy, easy to forget
+```
+
+**In 2D** the same rule applies in both dimensions — left padding covers column range queries, top padding covers row range queries. If you're querying arbitrary submatrices (like in problem 304), you need both.
+
+| Use case | Padding? |
+|---|---|
+| Sum from index 0 to i | No |
+| Sum from index l to r (arbitrary l) | Yes |
+| 2D submatrix sum query | Yes (both dimensions) |
+
+## 9. Common Pitfalls
 
 - **Forgetting `seen[0] = 1`**: without this, subarrays starting at index 0 are missed — this is the most common bug in the hashmap technique
 - **Off-by-one in range query**: `sum(arr[i..j])` with 0-indexed prefix array is `prefix[j] - prefix[i-1]`, which breaks when `i = 0`; use a 1-indexed prefix array to avoid this

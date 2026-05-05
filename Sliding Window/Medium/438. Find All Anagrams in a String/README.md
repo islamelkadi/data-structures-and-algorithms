@@ -1,33 +1,24 @@
-# 438. Find All Anagrams in a String
-**Difficulty:** Medium
-**Link:** https://leetcode.com/problems/find-all-anagrams-in-a-string/
-
 ## 1. Algorithm Used
 
-Variable-size sliding window with frequency map comparison.
+Sliding window with two frequency hashmaps.
 
 ## 2. How to Recognize the Pattern
 
-- "Find all starting indices where a substring is an anagram of p" → fixed-length window (len(p)) with frequency tracking.
-- Anagram = same characters, same counts → compare frequency maps.
-- Need every valid position, not just one → collect all windows where `s_hashmap == p_hashmap`.
+- "Find all substrings that are anagrams of p" → fixed-concept window (same character set as p).
+- Anagram = same characters, same counts → hashmap comparison.
+- Shrink from the left whenever a character is invalid or over-counted.
 
 ## 3. Why This Algorithm Fits
 
 - O(n) time — each character is added once and removed at most once.
-- O(k) space — both hashmaps hold at most k distinct characters where k ≤ 26.
-- Shrinking on invalid/over-counted characters keeps the window clean without a separate fixed-size check.
+- Shrinking only when a character is over-counted keeps the window as large as possible.
+- Comparing two hashmaps is O(1) since the alphabet is fixed size (26 letters).
 
 ## 4. How It Works
 
-Build a frequency map for `p`. Expand the window by adding `s[right]`. If the current character is either not in `p` or appears more times than allowed, shrink from the left until the count is back in bounds. After shrinking, if the two maps are equal the window is a valid anagram — record `left`.
+Maintain `p_hashmap` (fixed) and `s_hashmap` (sliding window). Expand `right` each iteration. If `s[right]` is over-counted relative to `p_hashmap`, shrink from `left` until it's valid. When both maps are equal, the window is an anagram — record `left`.
 
 ```python
-def shrink_left():
-    s_hashmap[s[left]] -= 1
-    if not s_hashmap[s[left]]:
-        del s_hashmap[s[left]]
-
 for right in range(len(s)):
     s_hashmap[s[right]] += 1
 
@@ -39,4 +30,13 @@ for right in range(len(s)):
         indices.append(left)
 ```
 
-The unified `while` condition covers both invalid characters (not in `p`, so `p_hashmap.get` returns 0) and over-counted ones — no need for two separate shrink loops. `shrink_left()` extracts the repeated decrement-and-delete logic to keep the loop body clean.
+Example with `s = "cbaebabacd"`, `p = "abc"`:
+- right=2: window "cba" == p_hashmap → append 0
+- right=6: window "bac" == p_hashmap → append 6
+- Result: `[0, 6]`
+
+## 5. Time & Space Complexity
+
+Time: O(n) — each character enters and leaves the window at most once.
+
+Space: O(1) — hashmaps are bounded by alphabet size (26).
