@@ -35,3 +35,16 @@ class Solution:
 ```
 
 Because the majority element appears more than n/2 times, it accumulates more votes than all other elements combined, so it always ends up as the surviving candidate.
+
+Input: `nums = [2, 2, 1, 1, 1, 2, 2]`
+
+| num | candidate | count | action |
+|-----|-----------|-------|--------|
+| 2 | 2 | 1 | count=0 → adopt 2, then +1 |
+| 2 | 2 | 2 | match → +1 |
+| 1 | 2 | 1 | mismatch → -1 |
+| 1 | 2 | 0 | mismatch → -1 |
+| 1 | 1 | 1 | count=0 → adopt 1, then +1 |
+| 2 | 1 | 0 | mismatch → -1 |
+| 2 | 2 | 1 | count=0 → adopt 2, then +1 |
+| result | 2 | | |

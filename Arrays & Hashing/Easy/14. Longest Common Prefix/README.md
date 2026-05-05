@@ -34,3 +34,11 @@ return prefix
 ```
 
 The set-size check is the key insight: instead of comparing each string to a reference string, collapsing all characters at a column into a set and checking its length handles the "all equal" condition in one step.
+
+Input: `strs = ["flower","flow","flight"]`, `min_len = 4`
+
+| i | chars at col i | set | size==1? | prefix |
+|---|----------------|-----|----------|--------|
+| 0 | f, f, f | {f} | yes | "f" |
+| 1 | l, l, l | {l} | yes | "fl" |
+| 2 | o, o, i | {o,i} | no → break | "fl" |

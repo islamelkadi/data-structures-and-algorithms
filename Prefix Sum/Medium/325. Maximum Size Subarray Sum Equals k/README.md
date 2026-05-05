@@ -37,3 +37,15 @@ return ans
 ```
 
 The `{0: -1}` seed is the key gotcha — without it, subarrays that start at index 0 are silently missed.
+
+Input: `nums = [1, -1, 5, -2, 3]`, `k = 3`
+
+| right | nums[right] | prefix_sum | in curr? | seen = ps-k | ans |
+|-------|-------------|------------|----------|-------------|-----|
+| init | | 0 | {0:-1} | | 0 |
+| 0 | 1 | 1 | no→store | 1-3=-2, not in curr | 0 |
+| 1 | -1 | 0 | 0 in curr (-1)! | 0-3=-3, not in curr | 0 |
+| 2 | 5 | 5 | no→store | 5-3=2, not in curr | 0 |
+| 3 | -2 | 3 | no→store | 3-3=0, in curr (-1) → len=3-(-1)=4 | 4 |
+| 4 | 3 | 6 | no→store | 6-3=3, in curr (3) → len=4-3=1 | 4 |
+| result | | | | | 4 |

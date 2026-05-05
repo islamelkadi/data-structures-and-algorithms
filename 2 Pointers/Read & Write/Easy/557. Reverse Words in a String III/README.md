@@ -38,3 +38,13 @@ return ' '.join(reverseWord(w) for w in words)
 ```
 
 The word order in the sentence is never touched — only the characters within each word are reversed.
+
+Input: `s = "Let's take LeetCode contest"`
+
+| word | reverseWord result |
+|------|--------------------|
+| "Let's" | "s'teL" |
+| "take" | "ekat" |
+| "LeetCode" | "edoCteeL" |
+| "contest" | "tsetnoC" |
+| joined | "s'teL ekat edoCteeL tsetnoC" |

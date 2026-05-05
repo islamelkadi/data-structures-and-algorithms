@@ -29,3 +29,20 @@ return ''.join(stack)
 ```
 
 The problem guarantees every `*` has a character to delete, so no empty-stack guard is needed — this keeps the logic minimal.
+
+Input: `s = "leet**cod*e"`
+
+| c | action | stack |
+|---|--------|-------|
+| l | push | [l] |
+| e | push | [l,e] |
+| e | push | [l,e,e] |
+| t | push | [l,e,e,t] |
+| * | pop | [l,e,e] |
+| * | pop | [l,e] |
+| c | push | [l,e,c] |
+| o | push | [l,e,c,o] |
+| d | push | [l,e,c,o,d] |
+| * | pop | [l,e,c,o] |
+| e | push | [l,e,c,o,e] |
+| result | join | "lecoe" |

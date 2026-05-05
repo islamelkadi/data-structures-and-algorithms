@@ -46,6 +46,26 @@ Right pass: result = [24, 12, 8, 6]   ← multiplied by product of everything af
   index 3: 6 × 1  = 6   (1*2*3 × nothing after)
 ```
 
+Input: `nums = [1, 2, 3, 4]`
+
+Left pass (prefix products):
+
+| i | nums[i] | prefix before | result[i] | prefix after |
+|---|---------|---------------|-----------|--------------|
+| 0 | 1 | 1 | 1 | prefix=1 |
+| 1 | 2 | 1 | 1 | prefix=1 |
+| 2 | 3 | 2 | 2 | prefix=2 |
+| 3 | 4 | 6 | 6 | prefix=6 |
+
+Right pass (multiply suffix products in):
+
+| i | nums[i] | suffix | result[i] *= suffix | suffix after |
+|---|---------|--------|---------------------|--------------|
+| 3 | 4 | 1 | 6×1=6 | suffix=4 |
+| 2 | 3 | 4 | 2×4=8 | suffix=12 |
+| 1 | 2 | 12 | 1×12=12 | suffix=24 |
+| 0 | 1 | 24 | 1×24=24 | suffix=24 |
+
 ## 5. Time & Space Complexity
 
 Time: O(n) — two passes through the array, O(1) work per element.

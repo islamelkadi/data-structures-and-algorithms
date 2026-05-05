@@ -34,3 +34,13 @@ return False
 ```
 
 The key insight is that order is enforced implicitly — `slow_pointer` never moves backward, so a match at position `i` in `t` can only be used for the current character of `s`, not a later one.
+
+Input: `s = "ace"`, `t = "abcde"`
+
+| char (t) | s[slow_pointer] | match? | slow_pointer |
+|----------|-----------------|--------|--------------|
+| a | a | yes | 1 |
+| b | c | no | 1 |
+| c | c | yes | 2 |
+| d | e | no | 2 |
+| e | e | yes | 3 = len(s) → return True |

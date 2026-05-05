@@ -35,3 +35,12 @@ return True
 ```
 
 The reverse map `t_hashmap` is what prevents two different source characters from collapsing onto the same target character — a check the forward map alone cannot catch.
+
+Input: `s = "egg"`, `t = "add"`
+
+| i | s[i] | t[i] | s_hashmap conflict? | t_hashmap conflict? | action |
+|---|------|------|---------------------|---------------------|--------|
+| 0 | e | a | no | no | s:{e→a}, t:{a→e} |
+| 1 | g | d | no | no | s:{e→a,g→d}, t:{a→e,d→g} |
+| 2 | g | d | s[g]=d == d ✓ | t[d]=g == g ✓ | no conflict |
+| result | | | | | True |

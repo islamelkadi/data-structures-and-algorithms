@@ -34,3 +34,9 @@ return True
 ```
 
 Since both strings are the same length and every character in `t` matches the count in `s`, there's no way `s` has leftover characters — so checking one direction is enough.
+
+Input: `s = "anagram"`, `t = "nagaram"`
+
+| step | s_counter | t_counter | char check | result |
+|------|-----------|-----------|------------|--------|
+| build | {a:3,n:1,g:1,r:1,m:1} | {n:1,a:3,g:1,r:1,m:1} | all match | True |

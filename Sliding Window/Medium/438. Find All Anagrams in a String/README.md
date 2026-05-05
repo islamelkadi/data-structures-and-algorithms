@@ -35,6 +35,26 @@ Example with `s = "cbaebabacd"`, `p = "abc"`:
 - right=6: window "bac" == p_hashmap → append 6
 - Result: `[0, 6]`
 
+Input: `s = "cbaebabacd"`, `p = "abc"`, `p_hashmap = {a:1,b:1,c:1}`
+
+| right | s[right] | s_hashmap | shrink? | == p_hashmap? | indices |
+|-------|---------|-----------|---------|---------------|---------|
+| 0 | c | {c:1} | no | no | [] |
+| 1 | b | {c:1,b:1} | no | no | [] |
+| 2 | a | {c:1,b:1,a:1} | no | yes | [0] |
+| 3 | e | {c:1,b:1,a:1,e:1} | e>0 → shrink c,b,a,left=3 | no | [0] |
+| 4 | b | {e:1,b:1} | no | no | [0] |
+| 5 | a | {e:1,b:1,a:1} | no | no | [0] |
+| 6 | b | {e:1,b:2,a:1} | b>1 → shrink e,left=4 | {b:2,a:1}≠p | [0] |
+| 6 | b | {b:2,a:1} | b>1 → shrink b,left=5 | {b:1,a:1}≠p | [0] |
+| 6 | b | {b:1,a:1} | no | no | [0] |
+| 7 | a | {b:1,a:2} | a>1 → shrink b,left=6 | {a:2}≠p | [0] |
+| 7 | a | {a:2} | a>1 → shrink a,left=7 | {a:1}≠p | [0] |
+| 8 | c | {a:1,c:1} | no | no | [0] |
+| 9 | d | {a:1,c:1,d:1} | d>0 → shrink a,left=8 | no | [0] |
+| 9 | d | {c:1,d:1} | d>0 → shrink c,left=9 | no | [0] |
+| 9 | d | {d:1} | d>0 → shrink d,left=10 | {} ≠ p | [0] |
+
 ## 5. Time & Space Complexity
 
 Time: O(n) — each character enters and leaves the window at most once.

@@ -34,3 +34,13 @@ return " ".join(s)
 ```
 
 The difference from problem 557 is that here the word order is reversed (not the characters within each word), and `split()` without an argument handles messy whitespace for free.
+
+Input: `s = "  the sky  is blue  "`
+
+| step | action | state |
+|------|--------|-------|
+| split | `s.split()` | `["the", "sky", "is", "blue"]` |
+| left=0, right=3 | swap "the" ↔ "blue" | `["blue", "sky", "is", "the"]` |
+| left=1, right=2 | swap "sky" ↔ "is" | `["blue", "is", "sky", "the"]` |
+| left=2, right=1 | left >= right → stop | |
+| join | `" ".join(...)` | `"blue is sky the"` |

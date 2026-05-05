@@ -35,3 +35,12 @@ return False
 ```
 
 The eviction condition `len(window) > k` (rather than `>= k`) ensures the window always contains exactly the `k` most recent elements before the next iteration's membership check.
+
+Input: `nums = [1, 2, 3, 1]`, `k = 3`
+
+| i | nums[i] | in window? | action | window |
+|---|---------|------------|--------|--------|
+| 0 | 1 | no | add | {1} |
+| 1 | 2 | no | add | {1,2} |
+| 2 | 3 | no | add | {1,2,3} |
+| 3 | 1 | yes | return True | |

@@ -27,3 +27,15 @@ return max_alt
 ```
 
 Initializing `max_alt` to 0 correctly accounts for the starting point — if every gain is negative, the highest altitude is the starting altitude of 0.
+
+Input: `gain = [-5, 1, 5, 0, -7]`
+
+| i | gain[i] | curr | max_alt |
+|---|---------|------|---------|
+| init | — | 0 | 0 |
+| 0 | -5 | -5 | 0 |
+| 1 | 1 | -4 | 0 |
+| 2 | 5 | 1 | 1 |
+| 3 | 0 | 1 | 1 |
+| 4 | -7 | -6 | 1 |
+| result | | | 1 |

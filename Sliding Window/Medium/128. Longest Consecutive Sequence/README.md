@@ -36,3 +36,12 @@ return ans
 ```
 
 Iterating over `nums_hashset` rather than `nums` automatically deduplicates, so duplicate values in the input don't cause incorrect counts or extra work.
+
+Input: `nums = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]` → set: `{0,1,2,3,4,5,6,7,8}`
+
+| num | num-1 in set? | sequence walk | length | ans |
+|-----|---------------|---------------|--------|-----|
+| 0 | -1? no → start | 1✓→2✓→3✓→4✓→5✓→6✓→7✓→8✓→9? no | 9 | 9 |
+| 3 | 2? yes → skip | — | — | 9 |
+| 7 | 6? yes → skip | — | — | 9 |
+| others | all have num-1 in set → skip | | | 9 |

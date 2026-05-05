@@ -38,3 +38,13 @@ return ans
 ```
 
 The order of checks matters: if you test `% 3` or `% 5` first, multiples of 15 would match the wrong branch before reaching "FizzBuzz".
+
+Input: `n = 5`
+
+| i | i%15 | i%5 | i%3 | output |
+|---|------|-----|-----|--------|
+| 1 | 1 | 1 | 1 | "1" |
+| 2 | 2 | 2 | 2 | "2" |
+| 3 | 3 | 3 | 0 | "Fizz" |
+| 4 | 4 | 4 | 1 | "4" |
+| 5 | 5 | 0 | 2 | "Buzz" |

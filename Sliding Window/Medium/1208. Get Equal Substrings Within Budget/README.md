@@ -31,3 +31,12 @@ class Solution:
 ```
 
 `ord(c)` converts a character to its ASCII value; the absolute difference gives the minimum cost to change one character to the other.
+
+Input: `s = "abcd"`, `t = "bcdf"`, `maxCost = 3`
+
+| right | s[r] | t[r] | cost added | total cost | left | window size | res |
+|-------|------|------|------------|------------|------|-------------|-----|
+| 0 | a | b | 1 | 1 | 0 | 1 | 1 |
+| 1 | b | c | 1 | 2 | 0 | 2 | 2 |
+| 2 | c | d | 1 | 3 | 0 | 3 | 3 |
+| 3 | d | f | 2 | 5>3 → shrink | 1 | 3 | 3 |

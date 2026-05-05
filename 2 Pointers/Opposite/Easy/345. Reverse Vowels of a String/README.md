@@ -33,3 +33,13 @@ while left < right:
         right -= 1
 return "".join(s)
 ```
+
+Input: `s = "hello"`
+
+| left | right | s[left] | s[right] | action |
+|------|-------|---------|---------|--------|
+| 0 | 4 | h | o | h not vowel → left++ |
+| 1 | 4 | e | o | both vowels → swap → "holle", move both |
+| 2 | 3 | l | l | l not vowel → left++; l not vowel → right-- |
+| 3 | 2 | — | — | left >= right → stop |
+| result | | | | "holle" |

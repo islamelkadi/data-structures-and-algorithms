@@ -32,3 +32,12 @@ return False
 ```
 
 The single-pass approach means the function exits as soon as the first duplicate is found rather than scanning the entire array.
+
+Input: `nums = [1, 2, 3, 1]`
+
+| num | in hashset? | action | hashset |
+|-----|-------------|--------|---------|
+| 1 | no | add | {1} |
+| 2 | no | add | {1,2} |
+| 3 | no | add | {1,2,3} |
+| 1 | yes | return True | |

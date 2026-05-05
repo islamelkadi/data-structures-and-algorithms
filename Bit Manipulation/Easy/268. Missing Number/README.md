@@ -31,3 +31,13 @@ return missing
 ```
 
 Initializing with `len(nums)` rather than 0 is the key gotcha — it covers the case where `n` itself is the missing number, which would otherwise never appear as an index.
+
+Input: `nums = [3, 0, 1]` (n=3, missing=2)
+
+| i | nums[i] | missing ^= i ^ nums[i] | missing |
+|---|---------|------------------------|---------|
+| init | — | missing = 3 (len) | 3 = 011 |
+| 0 | 3 | 011 ^ 000 ^ 011 | 000 |
+| 1 | 0 | 000 ^ 001 ^ 000 | 001 |
+| 2 | 1 | 001 ^ 010 ^ 001 | 010 = 2 |
+| result | | | 2 ✓ |

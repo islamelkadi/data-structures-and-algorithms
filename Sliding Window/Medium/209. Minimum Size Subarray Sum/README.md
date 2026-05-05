@@ -34,3 +34,14 @@ return 0 if ans == float("inf") else ans
 ```
 
 Returning 0 when `ans` is still infinity handles the case where no subarray reaches `target` — a clean sentinel check that avoids a separate pre-scan.
+
+Input: `nums = [2, 3, 1, 2, 4, 3]`, `target = 7`
+
+| right | nums[right] | curr | curr>=7? | left | ans |
+|-------|-------------|------|----------|------|-----|
+| 0 | 2 | 2 | no | 0 | inf |
+| 1 | 3 | 5 | no | 0 | inf |
+| 2 | 1 | 6 | no | 0 | inf |
+| 3 | 2 | 8 | yes → ans=4, shrink | 1 (curr=6) | 4 |
+| 4 | 4 | 10 | yes → ans=4, shrink | 2 (curr=7) → ans=3, shrink | 3 (curr=6) | 3 |
+| 5 | 3 | 9 | yes → ans=3, shrink | 4 (curr=7) → ans=2, shrink | 5 (curr=3) | 2 |

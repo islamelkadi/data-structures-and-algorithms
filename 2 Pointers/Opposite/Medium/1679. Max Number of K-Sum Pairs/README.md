@@ -36,3 +36,12 @@ return count
 ```
 
 Sorting first turns an unordered search into a directed one — each pointer move is guaranteed to bring the sum closer to k.
+
+Input: `nums = [1, 2, 3, 4]`, `k = 5` (after sort: `[1, 2, 3, 4]`)
+
+| left | right | nums[left] | nums[right] | sum | count | action |
+|------|-------|------------|-------------|-----|-------|--------|
+| 0 | 3 | 1 | 4 | 5 | 1 | ==k → count++, both move |
+| 1 | 2 | 2 | 3 | 5 | 2 | ==k → count++, both move |
+| 2 | 1 | — | — | — | 2 | left>=right → stop |
+| result | | | | | 2 | |

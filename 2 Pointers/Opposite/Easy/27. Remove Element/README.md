@@ -36,3 +36,12 @@ return right + 1
 ```
 
 The break condition is `left > right`, not `left == right`, because with an even-length array the pointers can cross without ever being equal — using `==` would miss that case.
+
+Input: `nums = [3, 2, 2, 3]`, `val = 3`
+
+| step | left | right | nums[left] | nums[right] | action |
+|------|------|-------|------------|-------------|--------|
+| init | 0 | 3 | 3 | 3 | right retreats past trailing 3s |
+| 1 | 0 | 1 | 3 | 2 | nums[left]==val → swap → [2,2,3,3], right=1 |
+| 2 | 1 | 1 | — | — | left > right → break |
+| result | — | — | — | — | return right+1 = 2 |

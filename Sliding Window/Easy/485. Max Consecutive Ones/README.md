@@ -37,3 +37,14 @@ return max_array_len
 ```
 
 Writing this with an explicit `zero_counter` and `while` loop (rather than a simple `if nums[right] == 0: left = right + 1`) makes the pattern identical to the harder variants — changing the budget from 0 to 1 or k solves 487 and 1004 with no structural changes.
+
+Input: `nums = [1, 1, 0, 1, 1, 1]`
+
+| right | nums[right] | zero_counter | left | window | max_len |
+|-------|-------------|--------------|------|--------|---------|
+| 0 | 1 | 0 | 0 | [0,0] | 1 |
+| 1 | 1 | 0 | 0 | [0,1] | 2 |
+| 2 | 0 | 1 | 0 | shrink: zero_counter>0 → left=3 | 2 |
+| 3 | 1 | 0 | 3 | [3,3] | 2 |
+| 4 | 1 | 0 | 3 | [3,4] | 2 |
+| 5 | 1 | 0 | 3 | [3,5] | 3 |

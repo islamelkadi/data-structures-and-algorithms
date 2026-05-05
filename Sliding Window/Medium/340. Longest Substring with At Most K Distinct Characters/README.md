@@ -36,3 +36,13 @@ return ans
 ```
 
 The `del` on zero-count is the critical step — without it `len(counts)` would never decrease and the shrink loop would run forever.
+
+Input: `s = "eceba"`, `k = 2`
+
+| right | s[right] | counts | distinct | left | ans |
+|-------|---------|--------|----------|------|-----|
+| 0 | e | {e:1} | 1 | 0 | 1 |
+| 1 | c | {e:1,c:1} | 2 | 0 | 2 |
+| 2 | e | {e:2,c:1} | 2 | 0 | 3 |
+| 3 | b | {e:2,c:1,b:1} | 3>2 → shrink: del c, left=2 | 2 | 3 |
+| 4 | a | {e:2,b:1,a:1} | 3>2 → shrink: e:1, e:0→del, left=3 | 3 | 3 |

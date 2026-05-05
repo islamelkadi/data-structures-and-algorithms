@@ -35,3 +35,11 @@ return "".join(sorted_str_arr)
 ```
 
 Storing `char * frequency` in the bucket rather than just the character means the final join step requires no additional repetition logic — the repeated string is already pre-built at insertion time.
+
+Input: `s = "tree"`
+
+| step | freq | buckets | result |
+|------|------|---------|--------|
+| count | {t:1, r:1, e:2} | | |
+| fill | | [[], [], ["ee"], ["t","r"]] | |
+| collect from end | | i=3→["t","r"], i=2→["ee"] | "tree" or "rtee" (order within bucket varies) |

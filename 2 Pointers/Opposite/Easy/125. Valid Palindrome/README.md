@@ -30,3 +30,19 @@ return True
 ```
 
 Cleaning first keeps the pointer logic dead simple — no need to skip special characters during comparison.
+
+Input: `s = "A man, a plan, a canal: Panama"` → cleaned: `"amanaplanacanalpanama"`
+
+| left | right | s[left] | s[right] | action |
+|------|-------|---------|---------|--------|
+| 0 | 19 | a | a | match → move both |
+| 1 | 18 | m | m | match → move both |
+| 2 | 17 | a | a | match → move both |
+| 3 | 16 | n | n | match → move both |
+| 4 | 15 | a | a | match → move both |
+| 5 | 14 | p | p | match → move both |
+| 6 | 13 | l | l | match → move both |
+| 7 | 12 | a | a | match → move both |
+| 8 | 11 | n | n | match → move both |
+| 9 | 10 | a | a | match → move both |
+| 10 | 9 | — | — | left >= right → stop, return True |

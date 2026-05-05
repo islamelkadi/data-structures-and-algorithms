@@ -32,3 +32,25 @@ return process(s) == process(t)
 ```
 
 The `elif stack` guard handles leading backspaces on an already-empty string without raising an error.
+
+Input: `s = "ab#c"`, `t = "ad#c"`
+
+Process `s = "ab#c"`:
+
+| c | action | stack |
+|---|--------|-------|
+| a | push | [a] |
+| b | push | [a,b] |
+| # | pop | [a] |
+| c | push | [a,c] |
+
+Process `t = "ad#c"`:
+
+| c | action | stack |
+|---|--------|-------|
+| a | push | [a] |
+| d | push | [a,d] |
+| # | pop | [a] |
+| c | push | [a,c] |
+
+`[a,c] == [a,c]` → return True

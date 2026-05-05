@@ -47,3 +47,15 @@ Option 2 (frequency array):
 - More memory overhead per key (26 ints vs a short string)
 
 So the irony: Option 2 wins on paper (O(k) vs O(k log k)), but Option 1 often performs just as well or better in practice for short words because string sorting and hashing are highly optimized in Python. Option 2 becomes the clear winner only when words are long.
+
+Input: `strs = ["eat","tea","tan","ate","nat","bat"]`
+
+| word | sorted key | group |
+|------|------------|-------|
+| "eat" | "aet" | ["eat"] |
+| "tea" | "aet" | ["eat","tea"] |
+| "tan" | "ant" | ["tan"] |
+| "ate" | "aet" | ["eat","tea","ate"] |
+| "nat" | "ant" | ["tan","nat"] |
+| "bat" | "abt" | ["bat"] |
+| result | | [["eat","tea","ate"],["tan","nat"],["bat"]] |

@@ -30,3 +30,15 @@ return count
 ```
 
 `num % 2` is the key reduction — it strips away the actual values and keeps only the parity, transforming an "odd numbers" problem into a standard prefix sum problem.
+
+Input: `nums = [1, 1, 2, 1, 1]`, `k = 3`
+
+| num | num%2 | curr | curr-k | prefix_count[curr-k] | count | prefix_count |
+|-----|-------|------|--------|----------------------|-------|--------------|
+| init | | 0 | | | 0 | {0:1} |
+| 1 | 1 | 1 | -2 | 0 | 0 | {0:1,1:1} |
+| 1 | 1 | 2 | -1 | 0 | 0 | {0:1,1:1,2:1} |
+| 2 | 0 | 2 | -1 | 0 | 0 | {0:1,1:1,2:2} |
+| 1 | 1 | 3 | 0 | 1 | 1 | {0:1,1:1,2:2,3:1} |
+| 1 | 1 | 4 | 1 | 1 | 2 | {0:1,1:1,2:2,3:1,4:1} |
+| result | | | | | 2 | |

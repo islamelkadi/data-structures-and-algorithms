@@ -35,3 +35,15 @@ class Solution:
 ```
 
 The subtractive cases (IV, IX, XL, XC, CD, CM) are all handled by the single condition `val[s[i]] < val[s[i+1]]` — no need to enumerate them explicitly.
+
+Input: `s = "MCMXCIV"` (= 1994)
+
+| i | s[i] | s[i+1] | val[s[i]] | val[s[i+1]] | subtract? | result |
+|---|------|--------|-----------|-------------|-----------|--------|
+| 0 | M | C | 1000 | 100 | no | +1000 = 1000 |
+| 1 | C | M | 100 | 1000 | yes | -100 = 900 |
+| 2 | M | X | 1000 | 10 | no | +1000 = 1900 |
+| 3 | X | C | 10 | 100 | yes | -10 = 1890 |
+| 4 | C | I | 100 | 1 | no | +100 = 1990 |
+| 5 | I | V | 1 | 5 | yes | -1 = 1989 |
+| 6 | V | — | 5 | — | no | +5 = 1994 |

@@ -32,3 +32,14 @@ return slow + 1
 ```
 
 At the end, `slow` is the index of the last unique element, so the count of unique elements is `slow + 1`. The elements beyond that index don't matter.
+
+Input: `nums = [1, 1, 2, 3, 3]`
+
+| fast | nums[fast] | slow | nums[slow] | action | array |
+|------|------------|------|------------|--------|-------|
+| 0 | 1 | 0 | 1 | same → skip | [1,1,2,3,3] |
+| 1 | 1 | 0 | 1 | same → skip | [1,1,2,3,3] |
+| 2 | 2 | 0 | 1 | diff → slow=1, write 2 | [1,2,2,3,3] |
+| 3 | 3 | 1 | 2 | diff → slow=2, write 3 | [1,2,3,3,3] |
+| 4 | 3 | 2 | 3 | same → skip | [1,2,3,3,3] |
+| result | | 2 | | return slow+1=3 | |

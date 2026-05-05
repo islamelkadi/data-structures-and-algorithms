@@ -35,6 +35,17 @@ return False
 
 Key subtlety: when `smallest` updates past `second_smallest` (e.g., smallest=5, second_smallest=12), it looks wrong. But `second_smallest = 12` guarantees a value smaller than 12 existed before it in the array. That forgotten value + 12 + current num forms the valid triplet.
 
+Input: `nums = [2, 1, 5, 0, 4, 6]`
+
+| num | smallest | second_smallest | action |
+|-----|----------|-----------------|--------|
+| 2 | 2 | inf | num ≤ smallest → lower gate 1 |
+| 1 | 1 | inf | num ≤ smallest → lower gate 1 |
+| 5 | 1 | 5 | num > smallest, ≤ second → lower gate 2 |
+| 0 | 0 | 5 | num ≤ smallest → lower gate 1 (5 still valid from before) |
+| 4 | 0 | 4 | num > smallest, ≤ second → lower gate 2 |
+| 6 | 0 | 4 | num > both gates → return True |
+
 ## 5. Time & Space Complexity
 
 Time: O(n) — single pass, O(1) work per element.

@@ -34,3 +34,15 @@ class Solution:
 ```
 
 This is the general form of 1493 (Longest Subarray of 1s After Deleting One Element), which is just this problem with k=1 and a mandatory deletion.
+
+Input: `nums = [1,1,1,0,0,0,1,1,1,1,0]`, `k = 2`
+
+| right | nums[right] | zeros | left | window size | res |
+|-------|-------------|-------|------|-------------|-----|
+| 0-2 | 1,1,1 | 0 | 0 | 3 | 3 |
+| 3 | 0 | 1 | 0 | 4 | 4 |
+| 4 | 0 | 2 | 0 | 5 | 5 |
+| 5 | 0 | 3>2 → shrink | 3 (skip 0s) | 3 | 5 |
+| 6-9 | 1,1,1,1 | 2 | 3 | 7 | 7 |
+| 10 | 0 | 3>2 → shrink | 5 | 6 | 7 |
+| result | | | | | 6 |

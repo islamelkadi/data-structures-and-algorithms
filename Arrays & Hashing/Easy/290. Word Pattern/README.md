@@ -38,3 +38,13 @@ return True
 ```
 
 The reverse map `word_to_char` prevents two different words from sharing the same pattern character — the same insight that makes bidirectional mapping necessary in Isomorphic Strings.
+
+Input: `pattern = "abba"`, `s = "dog cat cat dog"`
+
+| char | word | char_to_word conflict? | word_to_char conflict? | action |
+|------|------|------------------------|------------------------|--------|
+| a | dog | no | no | c:{a→dog}, w:{dog→a} |
+| b | cat | no | no | c:{a→dog,b→cat}, w:{dog→a,cat→b} |
+| b | cat | c[b]=cat==cat ✓ | w[cat]=b==b ✓ | ok |
+| a | dog | c[a]=dog==dog ✓ | w[dog]=a==a ✓ | ok |
+| result | | | | True |

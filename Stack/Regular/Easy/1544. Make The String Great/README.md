@@ -29,3 +29,19 @@ return ''.join(stack)
 ```
 
 The two conditions `stack[-1] != c` and `stack[-1].lower() == c.lower()` together identify same-letter opposite-case pairs — identical characters (e.g., `'a'` and `'a'`) are not bad pairs and should not be removed.
+
+Input: `s = "leEeetcode"`
+
+| c | stack top | bad pair? | action | stack |
+|---|-----------|-----------|--------|-------|
+| l | — | — | push | [l] |
+| e | l | no | push | [l,e] |
+| E | e | e≠E, e.lower==E.lower → yes | pop | [l] |
+| e | l | no | push | [l,e] |
+| e | e | e==e (identical) → no | push | [l,e,e] |
+| t | e | no | push | [l,e,e,t] |
+| c | t | no | push | [l,e,e,t,c] |
+| o | c | no | push | [l,e,e,t,c,o] |
+| d | o | no | push | [l,e,e,t,c,o,d] |
+| e | d | no | push | [l,e,e,t,c,o,d,e] |
+| result | | | join | "leetcode" |

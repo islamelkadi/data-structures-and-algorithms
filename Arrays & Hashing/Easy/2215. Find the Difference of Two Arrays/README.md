@@ -30,3 +30,10 @@ class Solution:
 ```
 
 `s1 - s2` gives all elements in s1 that are not in s2, and vice versa — exactly what the problem asks for.
+
+Input: `nums1 = [1,2,3]`, `nums2 = [2,4,6]`
+
+| step | s1 | s2 | s1-s2 | s2-s1 |
+|------|----|----|-------|-------|
+| convert | {1,2,3} | {2,4,6} | {1,3} | {4,6} |
+| result | | | [1,3] | [4,6] |

@@ -32,3 +32,12 @@ return slow
 ```
 
 For a list of length 5, fast takes 2 full steps (visiting nodes 1→3→5) while slow takes 2 steps (1→2→3), landing exactly at the middle. For length 6, fast takes 3 steps (1→3→5→None via fast.next) and slow lands at node 4 — the second of the two middle nodes, which is what LeetCode expects.
+
+Input: `1 → 2 → 3 → 4 → 5`
+
+| step | slow | fast | fast.next |
+|------|------|------|-----------|
+| init | 1 | 1 | 2 |
+| 1 | 2 | 3 | 4 |
+| 2 | 3 | 5 | None → stop |
+| result | 3 | | middle node |

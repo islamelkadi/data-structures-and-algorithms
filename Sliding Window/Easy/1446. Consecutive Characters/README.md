@@ -34,3 +34,15 @@ return ans
 ```
 
 Initialising `ans = 1` handles the edge case of a single-character string without any special-casing after the loop.
+
+Input: `s = "leetcode"`
+
+| right | s[right] | s[left] | match? | left | ans |
+|-------|---------|---------|--------|------|-----|
+| 1 | e | l | no → left=1 | 1 | 1 |
+| 2 | e | e | yes | 1 | 2 |
+| 3 | t | e | no → left=3 | 3 | 2 |
+| 4 | c | t | no → left=4 | 4 | 2 |
+| 5 | o | c | no → left=5 | 5 | 2 |
+| 6 | d | o | no → left=6 | 6 | 2 |
+| 7 | e | d | no → left=7 | 7 | 2 |

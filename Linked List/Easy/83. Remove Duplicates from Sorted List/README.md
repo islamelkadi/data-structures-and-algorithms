@@ -34,3 +34,13 @@ return head
 ```
 
 Not advancing `current` on a duplicate is the critical detail — it lets the same node compare against the next candidate after the skip.
+
+Input: `1 → 1 → 2 → 3 → 3`
+
+| current | current.next | same val? | action | list |
+|---------|-------------|-----------|--------|------|
+| 1 | 1 | yes | skip: 1.next = 2 | 1→2→3→3 |
+| 1 | 2 | no | advance | 1→2→3→3 |
+| 2 | 3 | no | advance | 1→2→3→3 |
+| 3 | 3 | yes | skip: 3.next = None | 1→2→3 |
+| 3 | None | — | stop | 1→2→3 |

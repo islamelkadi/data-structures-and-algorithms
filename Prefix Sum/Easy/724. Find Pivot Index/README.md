@@ -29,3 +29,12 @@ return -1
 ```
 
 The key insight is that you never need to store the right side — it's always derivable from the total and the current left accumulation.
+
+Input: `nums = [1, 7, 3, 6, 5, 6]`, `total = 28`
+
+| i | num | left_sum | right = 28-left_sum-num | equal? |
+|---|-----|----------|------------------------|--------|
+| 0 | 1 | 0 | 27 | no → left_sum=1 |
+| 1 | 7 | 1 | 20 | no → left_sum=8 |
+| 2 | 3 | 8 | 17 | no → left_sum=11 |
+| 3 | 6 | 11 | 11 | yes → return 3 |

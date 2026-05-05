@@ -34,3 +34,13 @@ class Solution:
 ```
 
 The key insight: `right - left` instead of `right - left + 1` accounts for the one element that must be deleted from the window.
+
+Input: `nums = [1, 1, 0, 1]`
+
+| right | nums[right] | zeros | left | res = right-left |
+|-------|-------------|-------|------|------------------|
+| 0 | 1 | 0 | 0 | 0 |
+| 1 | 1 | 0 | 0 | 1 |
+| 2 | 0 | 1 | 0 | 2 |
+| 3 | 1 | 1 | 0 | 3 |
+| result | | | | 3 |

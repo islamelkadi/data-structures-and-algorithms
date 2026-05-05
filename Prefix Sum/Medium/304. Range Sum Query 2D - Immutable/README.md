@@ -29,6 +29,49 @@ return bottom_range_prefix - top_range_prefix
 
 `bottom_range_prefix` is the sum of the full submatrix up to `(row2, col2)` minus the columns left of `col1`. Subtracting `top_range_prefix` removes the rows above `row1`.
 
+Input matrix:
+```
+3  0  1  4  2
+5  6  3  2  1
+1  2  0  1  5
+4  1  0  1  7
+1  0  3  0  5
+```
+
+After Pass 1 (row prefix — each cell = sum of row from col 0 to col c):
+```
+3   3   4   8  10
+5  11  14  16  17
+1   3   3   4   9
+4   5   5   6  13
+1   1   4   4   9
+```
+
+After Pass 2 (column prefix — each cell += cell from row above):
+```
+ 3   3   4   8  10
+ 8  14  18  24  27
+ 9  17  21  28  36
+13  22  26  34  49
+14  23  30  38  58
+```
+
+After padding (prepend zero column left, zero row top):
+```
+ 0   0   0   0   0   0
+ 0   3   3   4   8  10
+ 0   8  14  18  24  27
+ 0   9  17  21  28  36
+ 0  13  22  26  34  49
+ 0  14  23  30  38  58
+```
+
+Query `sumRegion(2, 1, 4, 3)` (rows 2-4, cols 1-3):
+- col2+1=4, row2+1=5
+- top = matrix[2][4] - matrix[2][1] = 24 - 8 = 16
+- bottom = matrix[5][4] - matrix[5][1] = 38 - 14 = 24
+- result = 24 - 16 = 8 ✓ (2+0+1+1+0+1+0+3+0 = 8)
+
 ## 5. When to Use Padding vs Not
 
 The need for padding comes down to whether you're doing range queries or just point lookups.

@@ -34,3 +34,14 @@ return max_profit
 ```
 
 The window never needs to shrink from the right — we only ever move `left` forward when we find a strictly cheaper price, which guarantees we always hold the best possible buy day.
+
+Input: `prices = [7, 1, 5, 3, 6, 4]`
+
+| right | prices[right] | prices[left] | left | current_profit | max_profit |
+|-------|---------------|--------------|------|----------------|------------|
+| 0 | 7 | 7 | 0 | 0 | 0 |
+| 1 | 1 | 7 | 1 | 0 | 0 |
+| 2 | 5 | 1 | 1 | 4 | 4 |
+| 3 | 3 | 1 | 1 | 2 | 4 |
+| 4 | 6 | 1 | 1 | 5 | 5 |
+| 5 | 4 | 1 | 1 | 3 | 5 |

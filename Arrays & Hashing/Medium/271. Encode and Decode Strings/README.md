@@ -43,3 +43,20 @@ while i < len(s):
 ```
 
 The key insight is that storing the length explicitly makes the `#` delimiter unambiguous — even if the string content contains `#` characters, the decoder always knows exactly how many bytes to consume.
+
+Input: `strs = ["hello", "world"]`
+
+Encode:
+| string | encoded chunk |
+|--------|---------------|
+| "hello" | "5#hello" |
+| "world" | "5#world" |
+| result | "5#hello5#world" |
+
+Decode `"5#hello5#world"`:
+| i | char | length_str | action | result |
+|---|------|------------|--------|--------|
+| 0-0 | 5 | "5" | digit | |
+| 1 | # | — | slice [2:7]="hello", i=7 | ["hello"] |
+| 7-7 | 5 | "5" | digit | |
+| 8 | # | — | slice [9:14]="world", i=14 | ["hello","world"] |

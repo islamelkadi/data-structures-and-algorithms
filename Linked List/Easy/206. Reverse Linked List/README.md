@@ -34,3 +34,15 @@ return previous
 ```
 
 Saving `next_node` before the reversal is essential — once `current.next` is overwritten, the rest of the original list would be unreachable without it.
+
+Input: `1 → 2 → 3 → 4 → 5`
+
+| step | previous | current | next_node | action |
+|------|----------|---------|-----------|--------|
+| init | None | 1 | — | |
+| 1 | None | 1 | 2 | 1.next=None, prev=1, curr=2 |
+| 2 | 1 | 2 | 3 | 2.next=1, prev=2, curr=3 |
+| 3 | 2 | 3 | 4 | 3.next=2, prev=3, curr=4 |
+| 4 | 3 | 4 | 5 | 4.next=3, prev=4, curr=5 |
+| 5 | 4 | 5 | None | 5.next=4, prev=5, curr=None |
+| done | 5 | None | — | return 5 → 4 → 3 → 2 → 1 |

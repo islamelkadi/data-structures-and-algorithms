@@ -34,3 +34,16 @@ class Solution:
 ```
 
 Only `nums[right]`'s frequency is checked in the while condition — no other element can newly violate the constraint when right advances.
+
+Input: `nums = [1, 2, 3, 1, 2, 3, 1, 2]`, `k = 2`
+
+| right | nums[right] | freq | freq[nums[right]]>k? | left | res |
+|-------|-------------|------|----------------------|------|-----|
+| 0 | 1 | {1:1} | no | 0 | 1 |
+| 1 | 2 | {1:1,2:1} | no | 0 | 2 |
+| 2 | 3 | {1:1,2:1,3:1} | no | 0 | 3 |
+| 3 | 1 | {1:2,2:1,3:1} | no | 0 | 4 |
+| 4 | 2 | {1:2,2:2,3:1} | no | 0 | 5 |
+| 5 | 3 | {1:2,2:2,3:2} | no | 0 | 6 |
+| 6 | 1 | {1:3,…} | yes → shrink: left=1 (1 leaves→{1:2}) | 1 | 6 |
+| 7 | 2 | {1:2,2:3,3:2} | yes → shrink: left=2 (2 leaves→{2:2}) | 2 | 6 |

@@ -35,3 +35,14 @@ class Solution:
 ```
 
 `res += left` works because after the shrink loop, `left` is the first index where the window `[left, right]` has fewer than k max elements — meaning all indices `0..left-1` as the start give a valid subarray ending at `right`.
+
+Input: `nums = [1, 3, 2, 3, 3]`, `k = 2`, `max_val = 3`
+
+| right | nums[right] | max_count | left | res |
+|-------|-------------|-----------|------|-----|
+| 0 | 1 | 0 | 0 | 0 |
+| 1 | 3 | 1 | 0 | 0 |
+| 2 | 2 | 1 | 0 | 0 |
+| 3 | 3 | 2 | 0 | shrink: left→1 (3 leaves), max_count=1. res+=1=1 |
+| 4 | 3 | 2 | 1 | shrink: left→2 (non-3), left→3 (3 leaves), max_count=1. res+=3=4 |
+| result | | | | 6 |

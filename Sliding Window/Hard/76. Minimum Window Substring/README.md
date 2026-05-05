@@ -43,3 +43,21 @@ for right in range(len(s)):
 ```
 
 The `<=` / `<` asymmetry is the key insight: `curr` only changes at the exact threshold, so extra copies of a character in the window don't inflate or deflate the satisfaction count.
+
+Input: `s = "ADOBECODEBANC"`, `t = "ABC"`, `t_hashmap = {A:1, B:1, C:1}`
+
+| right | s[right] | s_hashmap | curr | valid? | left | window |
+|-------|---------|-----------|------|--------|------|--------|
+| 0 | A | {A:1} | 1 | no | 0 | |
+| 1 | D | {A:1,D:1} | 1 | no | 0 | |
+| 2 | O | {A:1,D:1,O:1} | 1 | no | 0 | |
+| 3 | B | {…,B:1} | 2 | no | 0 | |
+| 4 | E | {…,E:1} | 2 | no | 0 | |
+| 5 | C | {…,C:1} | 3 | yes → shrink | 0 | "ADOBEC" len=6 |
+| shrink | A leaves | {…,A:0} | 2 | no | 1 | |
+| 6 | O | {…,O:2} | 2 | no | 1 | |
+| 7 | D | {…,D:2} | 2 | no | 1 | |
+| 8 | E | {…,E:2} | 2 | no | 1 | |
+| 9 | B | {…,B:2} | 2 | no | 1 | |
+| 10 | A | {…,A:1} | 3 | yes → shrink | 1 | "DOBECODEBA" → shrink to "BANC" len=4 |
+| result | | | | | | "BANC" |

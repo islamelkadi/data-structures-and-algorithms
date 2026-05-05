@@ -38,3 +38,17 @@ return largest_area
 Time: O(n) — each iteration moves one pointer inward, so at most n - 1 iterations total.
 
 Space: O(1) — only a few variables, no extra data structures.
+
+Input: `height = [1, 8, 6, 2, 5, 4, 8, 3, 7]`
+
+| left | right | h[left] | h[right] | area | max_area | action |
+|------|-------|---------|---------|------|----------|--------|
+| 0 | 8 | 1 | 7 | 1×8=8 | 8 | h[left]<h[right] → left++ |
+| 1 | 8 | 8 | 7 | 7×7=49 | 49 | h[left]>h[right] → right-- |
+| 1 | 7 | 8 | 3 | 3×6=18 | 49 | h[left]>h[right] → right-- |
+| 1 | 6 | 8 | 8 | 8×5=40 | 49 | h[left]<=h[right] → left++ |
+| 2 | 6 | 6 | 8 | 6×4=24 | 49 | h[left]<h[right] → left++ |
+| 3 | 6 | 2 | 8 | 2×3=6 | 49 | h[left]<h[right] → left++ |
+| 4 | 6 | 5 | 8 | 5×2=10 | 49 | h[left]<h[right] → left++ |
+| 5 | 6 | 4 | 8 | 4×1=4 | 49 | h[left]<h[right] → left++ |
+| 6 | 6 | — | — | — | 49 | left >= right → stop |

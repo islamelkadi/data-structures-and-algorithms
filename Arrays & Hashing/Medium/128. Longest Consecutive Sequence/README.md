@@ -31,3 +31,14 @@ for num in nums_hashset:
         ans = max(ans, subarr_len)
 return ans
 ```
+
+Input: `nums = [100, 4, 200, 1, 3, 2]` → set: `{1,2,3,4,100,200}`
+
+| num | num-1 in set? | sequence walk | length | ans |
+|-----|---------------|---------------|--------|-----|
+| 100 | 99? no → start | 101? no | 1 | 1 |
+| 4 | 3? yes → skip | — | — | 1 |
+| 200 | 199? no → start | 201? no | 1 | 1 |
+| 1 | 0? no → start | 2✓→3✓→4✓→5? no | 4 | 4 |
+| 3 | 2? yes → skip | — | — | 4 |
+| 2 | 1? yes → skip | — | — | 4 |

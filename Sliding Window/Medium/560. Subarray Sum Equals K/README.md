@@ -33,3 +33,13 @@ return ans
 ```
 
 The order matters: look up `curr - k` before inserting `curr` — otherwise a subarray of length 0 (same start and end index) could be counted when `k == 0`.
+
+Input: `nums = [1, 1, 1]`, `k = 2`
+
+| num | curr | curr-k | prefix_hashmap[curr-k] | ans | prefix_hashmap |
+|-----|------|--------|------------------------|-----|----------------|
+| init | 0 | | | 0 | {0:1} |
+| 1 | 1 | -1 | 0 | 0 | {0:1,1:1} |
+| 1 | 2 | 0 | 1 | 1 | {0:1,1:1,2:1} |
+| 1 | 3 | 1 | 1 | 2 | {0:1,1:1,2:1,3:1} |
+| result | | | | 2 | |

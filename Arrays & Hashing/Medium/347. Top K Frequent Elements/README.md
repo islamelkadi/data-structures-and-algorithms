@@ -36,3 +36,11 @@ for i in range(len(buckets) - 1, -1, -1):
 ```
 
 Using frequency as the bucket index is the core trick: it maps the ranking problem directly onto array positions, eliminating any need for comparison-based sorting.
+
+Input: `nums = [1,1,1,2,2,3]`, `k = 2`
+
+| step | freq | buckets (index=frequency) | output |
+|------|------|--------------------------|--------|
+| count | {1:3, 2:2, 3:1} | | |
+| fill | | [[], [], [3], [2], [], [1], []] (size 7) | |
+| collect from end | | i=6→[], i=5→[1], i=4→[], i=3→[2] | [1,2] → len>=k=2 → return |

@@ -37,3 +37,11 @@ while left < right:
 ```
 
 Because exactly one solution is guaranteed, the loop will always hit the `else` branch before `left` and `right` cross — no need for a fallback return.
+
+Input: `numbers = [2, 7, 11, 15]`, `target = 9`
+
+| left | right | numbers[left] | numbers[right] | sum | action |
+|------|-------|---------------|----------------|-----|--------|
+| 0 | 3 | 2 | 15 | 17 | >target → right-- |
+| 0 | 2 | 2 | 11 | 13 | >target → right-- |
+| 0 | 1 | 2 | 7 | 9 | ==target → return [1, 2] |

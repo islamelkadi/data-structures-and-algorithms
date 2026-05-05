@@ -41,3 +41,12 @@ return True
 ```
 
 The `(row // 3, col // 3)` key is the key insight: integer division maps all nine cells of a 3×3 box to the same tuple, so no explicit box-boundary arithmetic is needed.
+
+Input (partial): board with `5` at (0,0), `3` at (0,1), `7` at (0,4)
+
+| row | col | val | row_seen[0] | col_seen | grid_seen[(0,0)] | valid? |
+|-----|-----|-----|-------------|----------|------------------|--------|
+| 0 | 0 | 5 | {} | {} | {} | add all |
+| 0 | 1 | 3 | {5} | {3} | {5} | add all |
+| 0 | 4 | 7 | {5,3} | {7} | {5,3} | add all |
+| 0 | 0 | 5 (dup) | {5,3,7} | — | — | 5 in row_seen[0] → False |

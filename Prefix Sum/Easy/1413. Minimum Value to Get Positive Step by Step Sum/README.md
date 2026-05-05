@@ -27,3 +27,14 @@ return max(1, 1 - min_sum)
 ```
 
 `max(1, ...)` handles the case where all prefix sums are positive — the minimum valid start value is always 1, never 0 or negative.
+
+Input: `nums = [-3, 2, -3, 4, 2]`
+
+| i | num | curr | min_sum |
+|---|-----|------|---------|
+| 0 | -3 | -3 | -3 |
+| 1 | 2 | -1 | -3 |
+| 2 | -3 | -4 | -4 |
+| 3 | 4 | 0 | -4 |
+| 4 | 2 | 2 | -4 |
+| result | | | max(1, 1-(-4)) = 5 |

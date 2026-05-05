@@ -35,3 +35,13 @@ class Solution:
 ```
 
 The shrink loop runs before adding `nums[right]`, ensuring the set never contains a duplicate at the point of insertion.
+
+Input: `nums = [4, 2, 4, 5, 6]`
+
+| right | nums[right] | in seen? | shrink | curr_sum | seen | res |
+|-------|-------------|----------|--------|----------|------|-----|
+| 0 | 4 | no | — | 4 | {4} | 4 |
+| 1 | 2 | no | — | 6 | {4,2} | 6 |
+| 2 | 4 | yes | remove 4(left=0), left=1 | 2+4=6 | {2,4} | 6 |
+| 3 | 5 | no | — | 11 | {2,4,5} | 11 |
+| 4 | 6 | no | — | 17 | {2,4,5,6} | 17 |

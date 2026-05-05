@@ -38,3 +38,17 @@ class Solution:
 ```
 
 The key insight: "exactly k" = "at most k" − "at most k−1". This transforms an awkward exact constraint into two clean at-most windows.
+
+Input: `nums = [1, 2, 1, 2, 3]`, `k = 2`
+
+atMost(2) — windows with ≤ 2 distinct:
+
+| right | nums[right] | freq | distinct | left | subarrays added | res |
+|-------|-------------|------|----------|------|-----------------|-----|
+| 0 | 1 | {1:1} | 1 | 0 | 1 | 1 |
+| 1 | 2 | {1:1,2:1} | 2 | 0 | 2 | 3 |
+| 2 | 1 | {1:2,2:1} | 2 | 0 | 3 | 6 |
+| 3 | 2 | {1:2,2:2} | 2 | 0 | 4 | 10 |
+| 4 | 3 | {1:2,2:2,3:1} | 3>2 → shrink to left=2 | 2 | 3 | 13 |
+
+atMost(1) = 3. Result = 13 - 3 = 10

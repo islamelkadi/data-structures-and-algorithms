@@ -33,3 +33,11 @@ while left_index < right_index:
 ```
 
 The loop runs exactly `len(s) // 2` times — the middle element (if any) never needs to move.
+
+Input: `s = ["h","e","l","l","o"]`
+
+| step | left | right | swap | array |
+|------|------|-------|------|-------|
+| 1 | 0 | 4 | h ↔ o | ["o","e","l","l","h"] |
+| 2 | 1 | 3 | e ↔ l | ["o","l","l","e","h"] |
+| 3 | 2 | 2 | left >= right → stop | ["o","l","l","e","h"] |

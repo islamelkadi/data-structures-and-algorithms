@@ -29,3 +29,13 @@ return -1
 ```
 
 This problem is functionally identical to 724. Find Pivot Index — the same one-pass prefix sum approach solves both.
+
+Input: `nums = [2, 3, -1, 8, 4]`
+
+| i | num | left_sum | right_sum = total-left_sum-num | equal? |
+|---|-----|----------|-------------------------------|--------|
+| — | — | total=16 | | |
+| 0 | 2 | 0 | 16-0-2=14 | no → left_sum=2 |
+| 1 | 3 | 2 | 16-2-3=11 | no → left_sum=5 |
+| 2 | -1 | 5 | 16-5-(-1)=12 | no → left_sum=4 |
+| 3 | 8 | 4 | 16-4-8=4 | yes → return 3 |

@@ -30,3 +30,9 @@ class Solution:
 ```
 
 `set(c1) == set(c2)` checks that both strings use the same characters. `sorted(c1.values()) == sorted(c2.values())` checks that the frequency distributions have the same shape — you can't create a character that doesn't exist, so both conditions are necessary.
+
+Input: `word1 = "abc"`, `word2 = "bca"`
+
+| step | c1 | c2 | set(c1)==set(c2)? | sorted values match? | result |
+|------|----|----|-------------------|----------------------|--------|
+| build | {a:1,b:1,c:1} | {b:1,c:1,a:1} | {a,b,c}=={a,b,c} ✓ | [1,1,1]==[1,1,1] ✓ | True |

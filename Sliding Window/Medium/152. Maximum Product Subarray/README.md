@@ -34,3 +34,13 @@ return ans
 ```
 
 Initialising `ans = float("-inf")` correctly handles all-negative arrays where the best product is a single negative number.
+
+Input: `nums = [2, 3, -2, 4]`
+
+| i | nums[i] | prefix | suffix | ans |
+|---|---------|--------|--------|-----|
+| 0 | 2 | 2 | 4 | 4 |
+| 1 | 3 | 6 | -8 | 6 |
+| 2 | -2 | -12 | -2 | 6 |
+| 3 | 4 | -48→reset | 4→reset | 6 |
+| result | | | | 6 |

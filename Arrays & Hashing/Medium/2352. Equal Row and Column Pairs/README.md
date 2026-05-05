@@ -36,3 +36,13 @@ class Solution:
 ```
 
 `row_counts[col_tuple]` returns 0 if the column tuple has no matching row, so no special-casing is needed — the Counter handles missing keys gracefully.
+
+Input: `grid = [[3,2,1],[1,7,6],[2,7,7]]`
+
+| step | row tuples | col tuples | matches |
+|------|------------|------------|---------|
+| rows | (3,2,1):1, (1,7,6):1, (2,7,7):1 | | |
+| col 0 | | (3,1,2) | 0 |
+| col 1 | | (2,7,7) | (2,7,7) in rows → 1 |
+| col 2 | | (1,6,7) | 0 |
+| result | | | 1 |

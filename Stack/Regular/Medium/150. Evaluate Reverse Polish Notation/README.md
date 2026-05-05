@@ -47,6 +47,17 @@ Example with `["2", "1", "+", "3", "*"]`:
 - `*`: pop 3, pop 3 → push 9
 - Result: 9
 
+Input: `tokens = ["2","1","+","3","*"]`
+
+| token | action | stack |
+|-------|--------|-------|
+| "2" | push 2 | [2] |
+| "1" | push 1 | [2,1] |
+| "+" | pop 1, pop 2, push 3 | [3] |
+| "3" | push 3 | [3,3] |
+| "*" | pop 3, pop 3, push 9 | [9] |
+| result | pop | 9 |
+
 ## 5. Time & Space Complexity
 
 Time: O(n) — single pass through tokens, each push/pop is O(1).

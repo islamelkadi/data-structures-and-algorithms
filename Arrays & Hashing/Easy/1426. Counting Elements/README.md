@@ -30,3 +30,15 @@ class Solution:
 ```
 
 Note that we iterate over `arr` (not the set), so duplicates are counted individually — an element x appearing three times contributes 3 to the count if x+1 exists.
+
+Input: `arr = [1, 3, 2, 3, 5, 0]`
+
+| x | x+1 in set? | count |
+|---|-------------|-------|
+| 1 | 2 ✓ | 1 |
+| 3 | 4 ✗ | 1 |
+| 2 | 3 ✓ | 2 |
+| 3 | 4 ✗ | 2 |
+| 5 | 6 ✗ | 2 |
+| 0 | 1 ✓ | 3 |
+| result | | 3 |

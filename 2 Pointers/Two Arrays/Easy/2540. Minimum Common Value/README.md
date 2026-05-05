@@ -33,3 +33,10 @@ return -1
 ```
 
 The sorted property guarantees the first match found is the minimum — no need to scan further.
+
+Input: `nums1 = [1, 2, 3]`, `nums2 = [2, 4]`
+
+| i | j | nums1[i] | nums2[j] | action |
+|---|---|----------|----------|--------|
+| 0 | 0 | 1 | 2 | 1<2 → i++ |
+| 1 | 0 | 2 | 2 | match → return 2 |

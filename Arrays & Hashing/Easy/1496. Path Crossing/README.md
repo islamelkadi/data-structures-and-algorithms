@@ -37,3 +37,13 @@ class Solution:
 ```
 
 The starting position (0, 0) must be added before the loop — returning to the origin also counts as crossing.
+
+Input: `path = "NES"`
+
+| step | direction | (x, y) | in visited? | visited |
+|------|-----------|--------|-------------|---------|
+| init | — | (0,0) | — | {(0,0)} |
+| N | (0,1) | (0,1) | no | {(0,0),(0,1)} |
+| E | (1,0) | (1,1) | no | {(0,0),(0,1),(1,1)} |
+| S | (0,-1) | (1,0) | no | {(0,0),(0,1),(1,1),(1,0)} |
+| result | | | | False |

@@ -44,6 +44,18 @@ Example with `chars = ["a","a","b","b","c","c","c"]`:
 - compressed_string = `"a2b2c3"`
 - Write back into chars, return 6
 
+Input: `chars = ["a","a","b","b","c","c","c"]`
+
+| right | chars[right] | chars[left] | match? | compressed_string | left |
+|-------|-------------|-------------|--------|-------------------|------|
+| 0 | a | a | yes | "" | 0 |
+| 1 | a | a | yes | "" | 0 |
+| 2 | b | a | no → flush "a2" | "a2" | 2 |
+| 3 | b | b | yes | "a2" | 2 |
+| 4 | c | b | no → flush "b2" | "a2b2" | 4 |
+| 5 | c | c | yes | "a2b2" | 4 |
+| 6 | c | c | yes + end → flush "c3" | "a2b2c3" | 4 |
+
 ## 5. Time & Space Complexity
 
 Time: O(n) — single pass through chars, plus O(n) to write back. Each element visited at most twice.

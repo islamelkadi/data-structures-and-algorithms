@@ -19,6 +19,16 @@ Variable sliding window with a zero budget of 1 — the window may contain at mo
 - O(1) space — only three integer variables.
 - The generalised zero-budget pattern means changing the single constant `1` to `k` solves 1004 (Max Consecutive Ones III) with no other modifications.
 
+Input: `nums = [1, 0, 1, 1, 0]`
+
+| right | nums[right] | zero_counter | left | window size | res |
+|-------|-------------|--------------|------|-------------|-----|
+| 0 | 1 | 0 | 0 | 1 | 1 |
+| 1 | 0 | 1 | 0 | 2 | 2 |
+| 2 | 1 | 1 | 0 | 3 | 3 |
+| 3 | 1 | 1 | 0 | 4 | 4 |
+| 4 | 0 | 2>1 → shrink: left=2 (0 leaves) | 2 | 3 | 4 |
+
 ## 4. How It Works
 
 `zero_counter` tracks zeros inside the current window. When `nums[right]` is 0 the budget increments. If `zero_counter` exceeds 1, we shrink from `left`: if `nums[left]` was a zero we decrement the counter, then advance `left`. Once the budget is back within limit the window `[left, right]` contains at most one zero and we update the maximum length.

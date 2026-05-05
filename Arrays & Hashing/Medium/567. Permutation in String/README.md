@@ -46,3 +46,12 @@ return False
 ```
 
 Deleting a key when its count reaches zero is important: it keeps the window Counter clean so that Counter equality checks work correctly without spurious zero-count entries causing false mismatches.
+
+Input: `s1 = "ab"`, `s2 = "eidbaooo"`
+
+| i | head | tail | s2_hashmap | == s1_hashmap? |
+|---|------|------|------------|----------------|
+| init | — | — | {e:1,i:1} | {a:1,b:1}? no |
+| 2 | d | e | {i:1,d:1} | no |
+| 3 | b | i | {d:1,b:1} | no |
+| 4 | a | d | {b:1,a:1} | yes → return True |

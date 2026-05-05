@@ -37,3 +37,20 @@ def sumRange(self, left, right):
 ```
 
 The insight is that subtraction of two prefix values cancels out everything outside the window — no loop needed at query time.
+
+Input: `nums = [-2, 0, 3, -5, 2, -1]`
+
+Build prefix:
+
+| i | nums[i] | prefix[i] |
+|---|---------|-----------|
+| 0 | -2 | -2 |
+| 1 | 0 | -2 |
+| 2 | 3 | 1 |
+| 3 | -5 | -4 |
+| 4 | 2 | -2 |
+| 5 | -1 | -3 |
+
+Query `sumRange(0, 2)` → left=0 → return prefix[2] = 1
+
+Query `sumRange(2, 5)` → prefix[5] - prefix[1] = -3 - (-2) = -1

@@ -29,3 +29,15 @@ return ''.join(stack)
 ```
 
 This handles cascading removals automatically: once a pair is popped, the new top of the stack is compared against the next character without any extra logic.
+
+Input: `s = "abbaca"`
+
+| c | stack top | action | stack |
+|---|-----------|--------|-------|
+| a | — | push | [a] |
+| b | a | diff → push | [a,b] |
+| b | b | match → pop | [a] |
+| a | a | match → pop | [] |
+| c | — | push | [c] |
+| a | c | diff → push | [c,a] |
+| result | | join | "ca" |

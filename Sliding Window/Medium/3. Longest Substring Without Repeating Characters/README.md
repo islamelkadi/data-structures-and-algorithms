@@ -36,6 +36,19 @@ Example with `s = "abcabcbb"`:
 - `b` again → shrink: remove `b`, left=2. seen={c,a}. Add `b`, seen={c,a,b}, ans=3
 - And so on. Max stays 3.
 
+Input: `s = "abcabcbb"`
+
+| i | s[i] | in seen? | shrink | left | seen | ans |
+|---|------|----------|--------|------|------|-----|
+| 0 | a | no | — | 0 | {a} | 1 |
+| 1 | b | no | — | 0 | {a,b} | 2 |
+| 2 | c | no | — | 0 | {a,b,c} | 3 |
+| 3 | a | yes | remove a, left=1 | 1 | {b,c,a} | 3 |
+| 4 | b | yes | remove b, left=2 | 2 | {c,a,b} | 3 |
+| 5 | c | yes | remove c, left=3 | 3 | {a,b,c} | 3 |
+| 6 | b | yes | remove a, remove b, left=5 | 5 | {c,b} | 3 |
+| 7 | b | yes | remove c, remove b, left=7 | 7 | {b} | 3 |
+
 ## 5. Time & Space Complexity
 
 Time: O(n) — each character is added to the set once and removed at most once. Both `i` and `left` move forward only, so total operations across all iterations is at most 2n.

@@ -31,3 +31,9 @@ class Solution:
 ```
 
 The comparison `len(freq.values()) == len(set(freq.values()))` is the idiomatic way to check for duplicates in any collection.
+
+Input: `arr = [1, 2, 2, 1, 1, 3]`
+
+| step | freq | freq.values() | set(values) | len match? |
+|------|------|---------------|-------------|------------|
+| build | {1:3, 2:2, 3:1} | [3, 2, 1] | {3, 2, 1} | 3==3 → True |

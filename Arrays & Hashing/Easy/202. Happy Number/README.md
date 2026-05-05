@@ -35,3 +35,12 @@ class Solution:
 ```
 
 The key insight is that any non-happy number will eventually cycle back to a previously seen value, so a set is all you need to detect that.
+
+Input: `n = 19`
+
+| n | digit squares | sum | in seen? |
+|---|---------------|-----|----------|
+| 19 | 1²+9²=1+81 | 82 | no → add |
+| 82 | 8²+2²=64+4 | 68 | no → add |
+| 68 | 6²+8²=36+64 | 100 | no → add |
+| 100 | 1²+0²+0²=1 | 1 | — → return True |

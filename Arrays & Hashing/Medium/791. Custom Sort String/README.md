@@ -37,3 +37,14 @@ class Solution:
 ```
 
 Deleting from `freq` after processing each character in `order` ensures the second loop only handles characters not covered by `order`, avoiding duplicates in the output.
+
+Input: `order = "cba"`, `s = "abcd"`
+
+| step | freq | action | result |
+|------|------|--------|--------|
+| build | {a:1,b:1,c:1,d:1} | | |
+| c in order | c in freq ✓ | append "c", del c | ["c"] |
+| b in order | b in freq ✓ | append "b", del b | ["c","b"] |
+| a in order | a in freq ✓ | append "a", del a | ["c","b","a"] |
+| remaining | {d:1} | append "d" | ["c","b","a","d"] |
+| result | | | "cbad" |

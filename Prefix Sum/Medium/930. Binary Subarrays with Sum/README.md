@@ -30,3 +30,15 @@ return count
 ```
 
 The `prefix_count[0] = 1` initialization is critical — it accounts for subarrays that start at index 0 and whose sum equals the goal exactly.
+
+Input: `nums = [1, 0, 1, 0, 1]`, `goal = 2`
+
+| num | curr_sum | curr-goal | prefix_count[curr-goal] | count | prefix_count |
+|-----|----------|-----------|-------------------------|-------|--------------|
+| init | 0 | | | 0 | {0:1} |
+| 1 | 1 | -1 | 0 | 0 | {0:1,1:1} |
+| 0 | 1 | -1 | 0 | 0 | {0:1,1:2} |
+| 1 | 2 | 0 | 1 | 1 | {0:1,1:2,2:1} |
+| 0 | 2 | 0 | 1 | 2 | {0:1,1:2,2:2} |
+| 1 | 3 | 1 | 2 | 4 | {0:1,1:2,2:2,3:1} |
+| result | | | | 4 | |

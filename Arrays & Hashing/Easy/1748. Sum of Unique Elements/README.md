@@ -31,3 +31,9 @@ class Solution:
 ```
 
 Iterating over `freq` (the keys) rather than `nums` avoids double-counting — each unique element is visited once regardless of how many times it appears in the original array.
+
+Input: `nums = [1, 2, 3, 2]`
+
+| step | freq | filter (freq==1) | sum |
+|------|------|-----------------|-----|
+| build | {1:1, 2:2, 3:1} | [1, 3] | 4 |

@@ -39,6 +39,17 @@ Example with `nums = [1,1,1,2,2,3]`:
 - i=5: 3!=2, count=1, <=2 → write, left=5
 - Result: `[1,1,2,2,3]`, return 5
 
+Input: `nums = [1,1,1,2,2,3]`
+
+| i | nums[i] | nums[i-1] | count | count<=2? | left | nums (write head) |
+|---|---------|-----------|-------|-----------|------|-------------------|
+| 1 | 1 | 1 | 2 | yes | 2 | [1,1,1,2,2,3] |
+| 2 | 1 | 1 | 3 | no | 2 | skip |
+| 3 | 2 | 1 | 1 | yes | 3 | [1,1,2,2,2,3] |
+| 4 | 2 | 2 | 2 | yes | 4 | [1,1,2,2,2,3] |
+| 5 | 3 | 2 | 1 | yes | 5 | [1,1,2,2,3,3] |
+| result | | | | | 5 | [1,1,2,2,3,...] |
+
 ## 5. Time & Space Complexity
 
 Time: O(n) — single pass.

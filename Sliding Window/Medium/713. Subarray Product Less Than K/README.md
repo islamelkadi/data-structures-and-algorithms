@@ -33,3 +33,12 @@ class Solution:
 ```
 
 The `k <= 1` guard handles the edge case where no positive-integer product can ever be less than k.
+
+Input: `nums = [10, 5, 2, 6]`, `k = 100`
+
+| right | nums[right] | product | product>=k? | left | subarrays added | count |
+|-------|-------------|---------|-------------|------|-----------------|-------|
+| 0 | 10 | 10 | no | 0 | 1 | 1 |
+| 1 | 5 | 50 | no | 0 | 2 | 3 |
+| 2 | 2 | 100 | yes → /10, left=1 | 1 | 2 | 5 |
+| 3 | 6 | 60 | no | 1 | 3 | 8 |

@@ -32,3 +32,9 @@ class Solution:
 ```
 
 The condition `freq[x] == x` directly encodes the definition of a lucky number — the value and its occurrence count are the same.
+
+Input: `arr = [2, 2, 3, 4]`
+
+| step | freq | lucky candidates | result |
+|------|------|-----------------|--------|
+| build | {2:2, 3:1, 4:1} | x=2: freq[2]==2 ✓ | max([2]) = 2 |

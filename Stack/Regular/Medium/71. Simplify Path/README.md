@@ -30,3 +30,14 @@ return '/' + '/'.join(stack)
 ```
 
 The guard `if stack` on the `..` case handles paths like `/../` that try to go above root — they stay at root rather than causing an error.
+
+Input: `path = "/home//foo/"`
+
+| part | action | stack |
+|------|--------|-------|
+| "" | empty → skip | [] |
+| "home" | push | ["home"] |
+| "" | empty → skip | ["home"] |
+| "foo" | push | ["home","foo"] |
+| "" | empty → skip | ["home","foo"] |
+| result | "/" + join | "/home/foo" |

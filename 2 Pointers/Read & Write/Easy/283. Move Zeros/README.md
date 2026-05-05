@@ -32,3 +32,13 @@ for i in range(len(nums)):
 ```
 
 After the loop, all elements before `slow_pointer` are non-zero (in original order) and everything from `slow_pointer` onward is zero.
+
+Input: `nums = [0, 1, 0, 3, 12]`
+
+| i | nums[i] | slow_pointer | action | array |
+|---|---------|--------------|--------|-------|
+| 0 | 0 | 0 | zero → skip | [0,1,0,3,12] |
+| 1 | 1 | 0 | non-zero → swap [0]↔[1], slow=1 | [1,0,0,3,12] |
+| 2 | 0 | 1 | zero → skip | [1,0,0,3,12] |
+| 3 | 3 | 1 | non-zero → swap [1]↔[3], slow=2 | [1,3,0,0,12] |
+| 4 | 12 | 2 | non-zero → swap [2]↔[4], slow=3 | [1,3,12,0,0] |

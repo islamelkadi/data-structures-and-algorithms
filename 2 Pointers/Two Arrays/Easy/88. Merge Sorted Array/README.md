@@ -33,3 +33,14 @@ while p2 >= 0:
 ```
 
 Filling from the back is the key insight — it guarantees you never overwrite an element in nums1 before it has been compared.
+
+Input: `nums1 = [1,2,3,0,0,0]`, `m=3`, `nums2 = [2,5,6]`, `n=3`
+
+| p1 | p2 | p | nums1[p1] | nums2[p2] | write | nums1 |
+|----|----|----|-----------|-----------|-------|-------|
+| 2 | 2 | 5 | 3 | 6 | 6 at [5] | [1,2,3,0,0,6] |
+| 2 | 1 | 4 | 3 | 5 | 5 at [4] | [1,2,3,0,5,6] |
+| 2 | 0 | 3 | 3 | 2 | 3 at [3] | [1,2,3,3,5,6] |
+| 1 | 0 | 2 | 2 | 2 | 2 at [2] | [1,2,2,3,5,6] |
+| 0 | 0 | 1 | 1 | 2 | 2 at [1] | [1,2,2,3,5,6] |
+| 0 | -1 | — | — | — | p2<0 → stop | [1,2,2,3,5,6] |

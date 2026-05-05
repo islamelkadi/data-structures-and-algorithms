@@ -28,3 +28,10 @@ for i, num in enumerate(nums):
 ```
 
 By the time you reach the second number of the pair, the first is already stored. You only ever look back.
+
+Input: `nums = [2, 7, 11, 15]`, `target = 9`
+
+| i | num | complement | hashmap | action |
+|---|-----|------------|---------|--------|
+| 0 | 2 | 7 | {} | 7 not in map → store {2:0} |
+| 1 | 7 | 2 | {2:0} | 2 in map → return [0, 1] |

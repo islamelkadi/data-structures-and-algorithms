@@ -25,3 +25,12 @@ return nums
 ```
 
 Because each position only looks one step back, the in-place update is safe — by the time you reach index i, `nums[i-1]` already holds the correct prefix sum.
+
+Input: `nums = [1, 2, 3, 4]`
+
+| i | nums[i] | nums[i-1] | nums[i] after |
+|---|---------|-----------|---------------|
+| 1 | 2 | 1 | 3 |
+| 2 | 3 | 3 | 6 |
+| 3 | 4 | 6 | 10 |
+| result | | | [1, 3, 6, 10] |

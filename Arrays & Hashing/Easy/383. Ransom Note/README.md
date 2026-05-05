@@ -34,3 +34,11 @@ return True
 ```
 
 The two-condition check per character handles both the "letter missing entirely" and "letter present but insufficient" cases explicitly, making the logic easy to follow.
+
+Input: `ransomNote = "aa"`, `magazine = "aab"`
+
+| step | magazine_hashmap | ransom_hashmap | check |
+|------|-----------------|----------------|-------|
+| build | {a:2, b:1} | {a:2} | |
+| a | a in mag? yes | val=2 <= mag[a]=2 ✓ | pass |
+| result | | | True |

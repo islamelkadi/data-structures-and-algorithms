@@ -40,3 +40,20 @@ return list(triplets)
 ```
 
 Using a set for deduplication is simpler than manually skipping duplicate values with pointer jumps, at the cost of a small amount of extra space.
+
+Input: `nums = [-4, -1, -1, 0, 1, 2]` (after sort)
+
+| i | nums[i] | left | right | sum | action |
+|---|---------|------|-------|-----|--------|
+| 0 | -4 | 1 | 5 | -4+-1+2=-3 | <0 → left++ |
+| 0 | -4 | 2 | 5 | -4+-1+2=-3 | <0 → left++ |
+| 0 | -4 | 3 | 5 | -4+0+2=-2 | <0 → left++ |
+| 0 | -4 | 4 | 5 | -4+1+2=-1 | <0 → left++ |
+| 0 | -4 | 5 | 5 | — | left>=right → next i |
+| 1 | -1 | 2 | 5 | -1+-1+2=0 | ==0 → add (-1,-1,2) |
+| 1 | -1 | 3 | 4 | -1+0+1=0 | ==0 → add (-1,0,1) |
+| 1 | -1 | 4 | 4 | — | left>=right → next i |
+| 2 | -1 | 3 | 5 | (dup of i=1, set handles it) | |
+| 3 | 0 | 4 | 5 | 0+1+2=3 | >0 → right-- |
+| 3 | 0 | 4 | 4 | — | left>=right → done |
+| result | | | | | [(-1,-1,2), (-1,0,1)] |
