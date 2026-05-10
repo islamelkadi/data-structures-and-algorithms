@@ -596,7 +596,7 @@ Questions sourced from:
 | 13 | Roman to Integer | Easy | ✅ |
 | 14 | Longest Common Prefix | Easy | ✅ |
 | 80 | Remove Duplicates from Sorted Array II | Medium | ✅ |
-| 122 | Best Time to Buy and Sell Stock II | Medium | ⬜ |
+| 122 | Best Time to Buy and Sell Stock II | Medium | ✅ |
 | 128 | Longest Consecutive Sequence | Medium | ✅ |
 | 134 | Gas Station | Medium | ⬜ |
 | 152 | Maximum Product Subarray | Medium | ✅ |
@@ -604,6 +604,7 @@ Questions sourced from:
 | 334 | Increasing Triplet Subsequence | Medium | ✅ |
 | 380 | Insert Delete GetRandom O(1) | Medium | ⬜ |
 | 443 | String Compression | Medium | ✅ |
+| 6 | Zigzag Conversion | Medium | ✅ |
 | 36 | Valid Sudoku | Medium | ✅ |
 | 48 | Rotate Image | Medium | ⬜ |
 | 49 | Group Anagrams | Medium | ✅ |
