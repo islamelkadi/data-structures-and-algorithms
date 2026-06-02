@@ -2,6 +2,13 @@
 **Difficulty:** Hard
 **Link:** https://leetcode.com/problems/subarrays-with-k-different-integers/
 
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+
 ## 1. Algorithm Used
 at-most-k trick: answer = atMost(k) - atMost(k-1), where atMost counts subarrays with at most k distinct integers.
 
@@ -15,40 +22,41 @@ at-most-k trick: answer = atMost(k) - atMost(k-1), where atMost counts subarrays
 - atMost(k) is easy to implement with a standard variable window; the subtraction isolates the "exactly k" case.
 
 ## 4. How It Works
-`atMost(k)` counts all subarrays with ≤ k distinct integers using a frequency map. When `len(freq) > k`, shrink from the left, deleting entries that reach zero frequency. Each valid right position contributes `right - left + 1` subarrays. Subtracting `atMost(k-1)` from `atMost(k)` leaves only subarrays with exactly k distinct integers.
+
+`subarraysWithAtmostKDistinct(nums, k)` counts all subarrays with ≤ k distinct integers using a frequency map. When `len(curr) > k`, shrink from the left, deleting entries that reach zero frequency. Each valid right position contributes `right - left + 1` subarrays. Subtracting `subarraysWithAtmostKDistinct(nums, k-1)` from `subarraysWithAtmostKDistinct(nums, k)` leaves only subarrays with exactly k distinct integers.
 
 ```python
 from typing import List
-from collections import defaultdict
+
 class Solution:
     def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
-        def atMost(k):
-            freq = defaultdict(int)
-            left = res = 0
+        def subarraysWithAtmostKDistinct(nums, k):
+            curr = {}
+            left = ans = 0
             for right in range(len(nums)):
-                freq[nums[right]] += 1
-                while len(freq) > k:
-                    freq[nums[left]] -= 1
-                    if freq[nums[left]] == 0:
-                        del freq[nums[left]]
+                curr[nums[right]] = curr.get(nums[right], 0) + 1
+                while len(curr) > k and left <= right:
+                    curr[nums[left]] -= 1
+                    if curr[nums[left]] == 0:
+                        del curr[nums[left]]
                     left += 1
-                res += right - left + 1
-            return res
-        return atMost(k) - atMost(k - 1)
+                ans += right - left + 1
+            return ans
+        return subarraysWithAtmostKDistinct(nums, k) - subarraysWithAtmostKDistinct(nums, k - 1)
 ```
 
 The key insight: "exactly k" = "at most k" − "at most k−1". This transforms an awkward exact constraint into two clean at-most windows.
 
 Input: `nums = [1, 2, 1, 2, 3]`, `k = 2`
 
-atMost(2) — windows with ≤ 2 distinct:
+`subarraysWithAtmostKDistinct(nums, 2)` — windows with ≤ 2 distinct:
 
-| right | nums[right] | freq | distinct | left | subarrays added | res |
+| right | nums[right] | curr | distinct | left | subarrays added | ans |
 |-------|-------------|------|----------|------|-----------------|-----|
-| 0 | 1 | {1:1} | 1 | 0 | 1 | 1 |
-| 1 | 2 | {1:1,2:1} | 2 | 0 | 2 | 3 |
-| 2 | 1 | {1:2,2:1} | 2 | 0 | 3 | 6 |
-| 3 | 2 | {1:2,2:2} | 2 | 0 | 4 | 10 |
-| 4 | 3 | {1:2,2:2,3:1} | 3>2 → shrink to left=2 | 2 | 3 | 13 |
+| 0     | 1           | `{1:1}`| 1        | 0    | 1               | 1   |
+| 1     | 2           | `{1:1, 2:1}`| 2   | 0    | 2               | 3   |
+| 2     | 1           | `{1:2, 2:1}`| 2   | 0    | 3               | 6   |
+| 3     | 2           | `{1:2, 2:2}`| 2   | 0    | 4               | 10  |
+| 4     | 3           | `{1:2, 2:2, 3:1}`| 3 > 2 → shrink to left=2| 2 | 3 | 13 |
 
-atMost(1) = 3. Result = 13 - 3 = 10
+`subarraysWithAtmostKDistinct(nums, 1)` = 3. Result = 13 - 3 = 10

@@ -2,6 +2,13 @@
 **Difficulty:** Medium
 **Link:** https://leetcode.com/problems/length-of-longest-subarray-with-at-most-k-frequency/
 
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+
 ## 1. Algorithm Used
 Variable-size sliding window with a frequency hashmap; shrink when any element exceeds frequency k.
 

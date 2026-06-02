@@ -2,6 +2,13 @@
 **Difficulty:** Easy
 **Link:** https://leetcode.com/problems/unique-number-of-occurrences/
 
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+
 ## 1. Algorithm Used
 
 Frequency map with a uniqueness check on the frequency values using a set.
@@ -19,21 +26,33 @@ Frequency map with a uniqueness check on the frequency values using a set.
 
 ## 4. How It Works
 
-Count the frequency of each element with a Counter. Then compare the number of frequency values to the number of unique frequency values — if they match, all occurrences are unique.
+Count the frequency of each element with a Counter. Iterating over the frequencies, keep track of seen frequencies in a set. If a frequency is already in the set, return `False`. If the loop finishes without duplicates, return `True`.
 
 ```python
 from typing import List
 from collections import Counter
+
 class Solution:
     def uniqueOccurrences(self, arr: List[int]) -> bool:
-        freq = Counter(arr)
-        return len(freq.values()) == len(set(freq.values()))
+        frequencies = Counter(arr)
+        seen_hashset = set()
+
+        for freq in frequencies.values():
+            if freq in seen_hashset:
+                return False
+            seen_hashset.add(freq)
+        return True
 ```
 
-The comparison `len(freq.values()) == len(set(freq.values()))` is the idiomatic way to check for duplicates in any collection.
+The loop iterates over the frequency values and uses the `seen_hashset` for early exit upon detecting any duplicate frequency.
 
 Input: `arr = [1, 2, 2, 1, 1, 3]`
+Frequencies: `{1: 3, 2: 2, 3: 1}`
 
-| step | freq | freq.values() | set(values) | len match? |
-|------|------|---------------|-------------|------------|
-| build | {1:3, 2:2, 3:1} | [3, 2, 1] | {3, 2, 1} | 3==3 → True |
+| freq | seen_hashset | Condition: `freq in seen_hashset` | Action Taken |
+|------|--------------|----------------------------------|--------------|
+| *init*| `set()`      | -                                | -            |
+| 3    | `{3}`        | `3 in set()` → False             | Add 3 to set |
+| 2    | `{3, 2}`     | `2 in {3}` → False               | Add 2 to set |
+| 1    | `{3, 2, 1}`  | `1 in {3, 2}` → False            | Add 1 to set |
+| *end*| `{3, 2, 1}`  | -                                | Return True  |

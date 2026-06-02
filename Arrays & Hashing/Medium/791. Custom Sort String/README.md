@@ -2,6 +2,13 @@
 **Difficulty:** Medium
 **Link:** https://leetcode.com/problems/custom-sort-string/
 
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+
 ## 1. Algorithm Used
 
 Frequency map with ordered reconstruction — place characters in the order defined by `order`, then append remaining characters.
@@ -23,28 +30,34 @@ Count the frequency of each character in s. Iterate through `order` and append e
 
 ```python
 from collections import Counter
+
 class Solution:
     def customSortString(self, order: str, s: str) -> str:
-        freq = Counter(s)
-        result = []
-        for c in order:
-            if c in freq:
-                result.append(c * freq[c])
-                del freq[c]
-        for c, cnt in freq.items():
-            result.append(c * cnt)
-        return ''.join(result)
+        # There can be duplicates - a good question to ask
+        frequency_s = Counter(s)
+
+        str_ = ""
+        for char in order: # this will preserve the order of the characters and you just perform a lookup below
+            if char not in frequency_s:
+                continue
+            str_ += char * frequency_s[char]
+            del frequency_s[char]
+        
+        for char, count in frequency_s.items():
+            str_ += char * count
+        
+        return str_
 ```
 
-Deleting from `freq` after processing each character in `order` ensures the second loop only handles characters not covered by `order`, avoiding duplicates in the output.
+Deleting from `frequency_s` after processing each character in `order` ensures the second loop only handles characters not covered by `order`, avoiding duplicates in the output.
 
 Input: `order = "cba"`, `s = "abcd"`
 
-| step | freq | action | result |
-|------|------|--------|--------|
-| build | {a:1,b:1,c:1,d:1} | | |
-| c in order | c in freq ✓ | append "c", del c | ["c"] |
-| b in order | b in freq ✓ | append "b", del b | ["c","b"] |
-| a in order | a in freq ✓ | append "a", del a | ["c","b","a"] |
-| remaining | {d:1} | append "d" | ["c","b","a","d"] |
-| result | | | "cbad" |
+| step | frequency_s | action | str_ |
+|------|-------------|--------|------|
+| build | `{'a':1, 'b':1, 'c':1, 'd':1}` | | |
+| char = 'c' | `'c'` in `frequency_s` | append `"c"`, del `'c'` | `"c"` |
+| char = 'b' | `'b'` in `frequency_s` | append `"b"`, del `'b'` | `"cb"` |
+| char = 'a' | `'a'` in `frequency_s` | append `"a"`, del `'a'` | `"cba"` |
+| remaining | `{'d':1}` | append `"d"` | `"cbad"` |
+| result | | | `"cbad"` |

@@ -1,3 +1,9 @@
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+
 ## 1. Algorithm Used
 
 Prefix sum with derived suffix: find the leftmost index where left sum equals right sum.

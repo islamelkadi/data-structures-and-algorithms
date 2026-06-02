@@ -1,11 +1,12 @@
 class Solution:
-    def backspaceCompare(self, s: str, t: str) -> bool:
-        def process(string):
-            stack = []
-            for c in string:
-                if c != '#':
-                    stack.append(c)
-                elif stack:
-                    stack.pop()
-            return stack
-        return process(s) == process(t)
+    def delete_char(self, string: str):
+        stack = []
+        for char in string:
+            if char != "#":
+                stack.append(char)
+            elif char == "#" and stack:
+                stack.pop()
+        return stack
+
+    def backspaceCompare(self, s: str, t: str) -> bool:  
+        return self.delete_char(s) == self.delete_char(t)

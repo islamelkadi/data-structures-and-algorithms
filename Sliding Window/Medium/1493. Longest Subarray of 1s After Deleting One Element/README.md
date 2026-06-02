@@ -2,6 +2,14 @@
 **Difficulty:** Medium
 **Link:** https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/
 
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+5. [5. Notes & Lessons Learned](#5-notes--lessons-learned)
+
 ## 1. Algorithm Used
 Variable-size sliding window tracking zeros; allow at most 1 zero (representing the deleted element).
 
@@ -44,3 +52,18 @@ Input: `nums = [1, 1, 0, 1]`
 | 2 | 0 | 1 | 0 | 2 |
 | 3 | 1 | 1 | 0 | 3 |
 | result | | | | 3 |
+
+## 5. Notes & Lessons Learned
+
+> [!NOTE]
+> **Edge Case Verification & Destructive Set Pops**:
+> When optimizing early exits for uniform inputs:
+> - **All-Ones**: If `nums_hashset == {1}`, deleting one element means returning `len(nums) - 1`.
+> - **All-Zeros**: If `nums_hashset == {0}`, deleting one element leaves no `1`s, so we must return `0`.
+>
+> **Pitfall**: Avoid using `nums_hashset.pop() == 1` inside conditional checks. `pop()` is destructive and mutates the set, which will cause subsequent checks to see an empty or altered set. Always compare sets directly (e.g. `nums_hashset == {1}`).
+>
+> **Window Sizing for Mandatory Deletion**:
+> In standard sliding window problems, the size of a window `[left, right]` is `right - left + 1`. Because this problem demands the deletion of exactly one element, we subtract 1 from the size, yielding:
+> $$\text{Window Size} = (right - left + 1) - 1 = right - left$$
+> This handles both the zero-deletion (when a zero is present in the window) and case when no zeros exist in the window (where we still must delete one element).

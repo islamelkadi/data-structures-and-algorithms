@@ -1,5 +1,23 @@
 # Bit Manipulation
 
+
+## Table of Contents
+1. [1. What It Is](#1-what-it-is)
+2. [2. When to Use It — Pattern Recognition](#2-when-to-use-it--pattern-recognition)
+   - [Keywords that signal this algorithm:](#keywords-that-signal-this-algorithm)
+   - [Problem characteristics:](#problem-characteristics)
+3. [3. Core Technique(s)](#3-core-techniques)
+   - [Technique A: XOR Pairing — Find the Unique Element](#technique-a-xor-pairing--find-the-unique-element)
+   - [Technique B: XOR Pairing — Find the Missing Number](#technique-b-xor-pairing--find-the-missing-number)
+   - [Technique C: Bit Masking — Check and Set Bits](#technique-c-bit-masking--check-and-set-bits)
+   - [Technique D: Shift Operations](#technique-d-shift-operations)
+   - [Technique E: Count Set Bits (Brian Kernighan)](#technique-e-count-set-bits-brian-kernighan)
+4. [4. Decision Framework](#4-decision-framework)
+5. [5. One-Pass vs Multi-Pass Reasoning](#5-one-pass-vs-multi-pass-reasoning)
+6. [6. Index and Pointer Management](#6-index-and-pointer-management)
+7. [7. Complexity Patterns](#7-complexity-patterns)
+8. [8. Common Pitfalls](#8-common-pitfalls)
+
 ## 1. What It Is
 
 Bit manipulation solves problems by operating directly on the binary representation of integers. Instead of using loops or hash structures, you exploit properties of bitwise operators (XOR, AND, OR, shifts) to achieve O(1) or O(n) solutions with O(1) space. The most powerful property is XOR: it cancels paired values and isolates unpaired ones, making it ideal for "find the missing/unique element" problems.

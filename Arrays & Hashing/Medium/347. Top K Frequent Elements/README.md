@@ -2,6 +2,13 @@
 **Difficulty:** Medium
 **Link:** https://leetcode.com/problems/top-k-frequent-elements/
 
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+
 ## 1. Algorithm Used
 
 Bucket sort by frequency: place each number into a bucket indexed by its frequency, then collect elements from the highest-frequency buckets down until k elements are gathered.

@@ -8,16 +8,16 @@ class Solution:
         left = ans = 0
         window = defaultdict(int)
 
-        for right in range(len(s)):
+        for right in range(len(s)): # O(n)
             # Add new character to window
             window[s[right]] = window.get(s[right], 0) + 1
             
             # curr = number of chars we need to replace
             # window length - count of most frequent char
-            curr = (right - left + 1) - max(window.values())
-            
+            curr = (right - left + 1) - max(window.values()) # O(26)-> 0(1)
+
             # If we need more replacements than k allows
-            while curr > k:
+            while curr > k: # O(N) amoritzed
                 window[s[left]] -= 1
                 left += 1
                 curr -= 1  # Simply decrement by 1 since window size reduced by 1

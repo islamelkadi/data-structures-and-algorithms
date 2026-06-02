@@ -1,0 +1,120 @@
+# Repository Rules & Coding Assistant Guide
+
+You are an AI assistant pair programming with the user to study Data Structures & Algorithms (DSA). 
+
+### Division of Labor
+* **The User**: Solves the problems manually on LeetCode and provides the question link and their working implementation.
+* **The AI Agent**: Takes the user's code and link, saves them in the correct directory structure (`main.py`), and performs the documentation, cataloging, and guide-generalization workflow. The agent does NOT write original solutions unless explicitly asked to help debug or explain.
+
+---
+
+## 1. Directory Structure
+
+The repository is organized by algorithm topic:
+```
+├── [Algorithm Topic] (e.g., Sliding Window, 2 Pointers, Prefix Sum, Stack)
+│   ├── README.md (Algorithm-level deep dive)
+│   ├── Easy/
+│   │   └── [Number. Name]/ (e.g., 121. Best Time to Buy and Sell Stock)
+│   │       ├── main.py (LeetCode Solution)
+│   │       └── README.md (Problem-level explanation)
+│   ├── Medium/
+│   └── Hard/
+├── README.md (Root-level Algorithmic Thinking Guide & Study Plan)
+└── PROBLEM_FILES_SUMMARY.md (Catalog of all solved problems)
+```
+
+---
+
+## 2. Core Workflow for Solving a Problem
+
+Whenever the user solves a new problem or you are asked to implement a solution:
+
+### Step 1: Implement the Code
+* Write the implementation in `[Algorithm Topic]/[Difficulty]/[Question]/main.py`.
+* Match LeetCode's class/method structure exactly.
+* Write clean, idiomatic Python with minimal boilerplate.
+
+### Step 2: Create the Problem-Level README
+* Create `[Algorithm Topic]/[Difficulty]/[Question]/README.md` following the exact template below.
+* **MANDATORY**: Include a **Table of Contents** at the top of the README.
+* **MANDATORY**: Include a **Dry Run Table** tracing a sample input step-by-step.
+
+### Step 3: Update the Algorithm-Level and Root-Level Guides (Generalize Learnings)
+* Review what was learned from this problem.
+* Update the algorithm-level `README.md` (e.g., `Sliding Window/README.md`) and/or the root `README.md` to document new techniques, pattern-recognition rules, index management strategies, or common pitfalls discovered.
+* *Do not just add code snippets; abstract the learning so it can be applied to other future problems.*
+
+### Step 4: Catalog the Problem
+* Update [PROBLEM_FILES_SUMMARY.md](file:///Users/Islam/Documents/GitHub/data-structures-and-algorithms/PROBLEM_FILES_SUMMARY.md):
+  * Locate the correct `### Algorithm (Count problems)` section.
+  * Update the parenthetical problem count.
+  * Add the problem title and relative links to `README.md` and `main.py` under the appropriate difficulty section (`#### Easy`, `#### Medium`, or `#### Hard`).
+  * Increment the `Total Problem Pairs Found` counter at the top of the file.
+
+### Step 5: Mark as Solved in Root Tracker
+* Update the root [README.md](file:///Users/Islam/Documents/GitHub/data-structures-and-algorithms/README.md):
+  * Find the corresponding problem in the **Study Plan** tables.
+  * Change the checkbox from `⬜` to `✅`.
+
+---
+
+## 3. Templates
+
+### Problem-Level README.md Template
+Use this template exactly for `[Algorithm Topic]/[Difficulty]/[Question]/README.md`:
+
+```markdown
+# [Problem Number]. [Problem Name]
+
+**Difficulty:** [Easy/Medium/Hard]
+**Link:** [LeetCode URL]
+
+## Table of Contents
+1. [Algorithm Used](#1-algorithm-used)
+2. [How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [How It Works](#4-how-it-works)
+
+## 1. Algorithm Used
+
+[Provide a 1-2 sentence description of the algorithm and data structures used.]
+
+## 2. How to Recognize the Pattern
+
+- [Pattern Indicator 1: Explain what in the description pointed you to this algorithm]
+- [Pattern Indicator 2: Explain alternative choices and why they were ruled out]
+
+## 3. Why This Algorithm Fits
+
+- **Time Complexity**: O(...) — Explain why, highlighting how many passes and what operations dominate.
+- **Space Complexity**: O(...) — Detail what data structures are used and their sizes relative to the input.
+- [Detail any specific mathematical or structural guarantees that enable this performance]
+
+## 4. How It Works
+
+[A concise step-by-step description of the execution flow.]
+
+```python
+# Insert the key code snippet or full solution here
+```
+
+### Dry Run Table
+Input: `nums = [1, 2, 3]`, `k = ...` (Choose a simple but representative example)
+
+| Step/Index | Variable 1 | Variable 2 | Condition / Check | Action Taken |
+|------------|------------|------------|-------------------|--------------|
+| *init*     | ...        | ...        | ...               | ...          |
+| 0          | ...        | ...        | ...               | ...          |
+| 1          | ...        | ...        | ...               | ...          |
+```
+
+---
+
+## 4. Documentation Guidelines
+
+* **Table of Contents**: Every README.md (whether root, algorithm-level, or problem-level) must include a Table of Contents at the top. Every time a README is updated or generated with new sections, the Table of Contents must be updated accordingly to match the current section list.
+* **Trace Tables**: Keep the dry run tables concise but complete. They should reflect the exact state changes of key variables (like pointers, counters, maps, or stacks) per loop iteration.
+* **Keep Lines Clean**: Keep bullet points concise and avoid wrapped lines where possible.
+* **Use Relative Links**: Always use relative paths when linking to other files in the repository within the markdown files.
+* **Do not use placeholders**: Always generate complete solutions and detailed notes.

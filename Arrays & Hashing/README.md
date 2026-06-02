@@ -1,5 +1,23 @@
 # Arrays & Hashing
 
+
+## Table of Contents
+1. [1. What It Is](#1-what-it-is)
+2. [2. When to Use It — Pattern Recognition](#2-when-to-use-it--pattern-recognition)
+   - [Keywords that signal this algorithm:](#keywords-that-signal-this-algorithm)
+   - [Problem characteristics:](#problem-characteristics)
+3. [3. Core Technique(s)](#3-core-techniques)
+   - [Technique A: Hash Set for O(1) Membership](#technique-a-hash-set-for-o1-membership)
+   - [Technique B: Frequency Counter](#technique-b-frequency-counter)
+   - [Technique C: Bidirectional Mapping (Bijection)](#technique-c-bidirectional-mapping-bijection)
+   - [Technique D: Bucket Sort / Counting Sort](#technique-d-bucket-sort--counting-sort)
+   - [Technique E: Computed Hash Key for Grouping](#technique-e-computed-hash-key-for-grouping)
+4. [4. Decision Framework](#4-decision-framework)
+5. [5. One-Pass vs Multi-Pass Reasoning](#5-one-pass-vs-multi-pass-reasoning)
+6. [6. Index and Pointer Management](#6-index-and-pointer-management)
+7. [7. Complexity Patterns](#7-complexity-patterns)
+8. [8. Common Pitfalls](#8-common-pitfalls)
+
 ## 1. What It Is
 
 Arrays & Hashing covers problems solved by trading space for time: store elements (or their frequencies, positions, or mappings) in a hash set or hash map to answer membership, frequency, and relationship queries in O(1) instead of O(n). The core idea is that a hash structure lets you look up "have I seen this before?" or "how many times did X appear?" in constant time.
@@ -135,6 +153,7 @@ Many hashing problems are solved in **one pass** because you build the structure
 **Two passes** are needed when:
 - You need the full frequency distribution before making decisions (e.g., "unique number of occurrences" — count first, then check uniqueness of counts)
 - You need to know total count before processing (e.g., majority element threshold is n/2, so you need n first)
+- You need to query an aggregate of frequencies (e.g., "count elements with maximum frequency" — count first to find the maximum frequency, then sum up occurrences of elements matching that max)
 
 ## 6. Index and Pointer Management
 

@@ -1,5 +1,21 @@
 # Two Pointers
 
+
+## Table of Contents
+1. [1. What It Is](#1-what-it-is)
+2. [2. When to Use It — Pattern Recognition](#2-when-to-use-it--pattern-recognition)
+   - [Keywords that signal this algorithm:](#keywords-that-signal-this-algorithm)
+   - [Problem characteristics:](#problem-characteristics)
+3. [3. Core Technique(s)](#3-core-techniques)
+   - [Technique A: Opposite Direction (Converging)](#technique-a-opposite-direction-converging)
+   - [Technique B: Same Direction (Fast/Slow or Read/Write)](#technique-b-same-direction-fastslow-or-readwrite)
+   - [Technique C: Two Arrays (Merge / Subsequence)](#technique-c-two-arrays-merge--subsequence)
+4. [4. Decision Framework](#4-decision-framework)
+5. [5. One-Pass vs Multi-Pass Reasoning](#5-one-pass-vs-multi-pass-reasoning)
+6. [6. Index and Pointer Management](#6-index-and-pointer-management)
+7. [7. Complexity Patterns](#7-complexity-patterns)
+8. [8. Common Pitfalls](#8-common-pitfalls)
+
 ## 1. What It Is
 
 Two Pointers is a technique where you maintain two index variables that move through a sequence — either toward each other from opposite ends, or in the same direction at different speeds. It turns problems that would naively require nested loops (O(n²)) into a single linear pass (O(n)).
@@ -107,6 +123,7 @@ Multi-pass is needed when: you need a first pass to compute something (e.g., tot
 - **Same direction read/write**: `write` starts at 0; `read` iterates with `for read in range(len)`; final answer is often the `write` index value
 - **3Sum**: outer loop runs `i` from 0 to `len - 2`; inner pointers are `left = i + 1`, `right = len - 1`; skip duplicates by checking `arr[i] == arr[i-1]`
 - **Merge from back**: when merging into the larger array (88. Merge Sorted Array), start both read pointers at the end and write from the back to avoid overwriting unread values
+- **Bottleneck-driven movement**: in problems where the capacity/metric at a pointer is determined by the minimum boundary from both ends (e.g. `42. Trapping Rain Water`), update the running maxes `max_left` and `max_right`. Since the smaller boundary is the true bottleneck, calculate the trapped amount at that pointer and move it inward (increment `left` if `max_left < max_right`, otherwise decrement `right`). We do not need to know the heights of obstacles in between because the larger boundary does not limit the volume.
 
 ## 7. Complexity Patterns
 

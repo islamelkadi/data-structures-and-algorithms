@@ -1,5 +1,21 @@
 # Sliding Window
 
+
+## Table of Contents
+1. [1. What It Is](#1-what-it-is)
+2. [2. When to Use It — Pattern Recognition](#2-when-to-use-it--pattern-recognition)
+   - [Keywords that signal this algorithm:](#keywords-that-signal-this-algorithm)
+   - [Problem characteristics:](#problem-characteristics)
+3. [3. Core Technique(s)](#3-core-techniques)
+   - [Technique A: Fixed-Size Window](#technique-a-fixed-size-window)
+   - [Technique B: Variable-Size Window (Expand/Shrink)](#technique-b-variable-size-window-expandshrink)
+   - [Technique C: At-Most-K Trick (Exactly K)](#technique-c-at-most-k-trick-exactly-k)
+4. [4. Decision Framework](#4-decision-framework)
+5. [5. One-Pass vs Multi-Pass Reasoning](#5-one-pass-vs-multi-pass-reasoning)
+6. [6. Index and Pointer Management](#6-index-and-pointer-management)
+7. [7. Complexity Patterns](#7-complexity-patterns)
+8. [8. Common Pitfalls](#8-common-pitfalls)
+
 ## 1. What It Is
 
 Sliding Window is a technique for processing contiguous subarrays or substrings in O(n) time. Instead of recomputing the window from scratch on each step, you maintain a running state and update it incrementally as the window slides: add the new right element, remove the old left element. The "window" is the range `[left, right]` of indices currently under consideration.
@@ -68,6 +84,10 @@ return result
 ```
 
 Use when: "longest subarray with at most k distinct", "longest substring without repeating characters", "max consecutive ones with k flips".
+
+*Optimization — Historical Max Frequency*: In problems where validity is checked using the frequency of the most frequent character `max_freq` (e.g. `window_size - max_freq <= k` in `424. Longest Repeating Character Replacement`), we do not need to decrement `max_freq` when shrinking the window. Decreasing a character's count can never increase the overall maximum frequency. Thus, `max_freq` only needs to be updated when it increases, which only happens during expansion on the right pointer. This allows us to track a running `max_freq` without re-scanning the frequency map, maintaining true O(1) operations per step.
+
+
 
 ### Technique C: At-Most-K Trick (Exactly K)
 

@@ -1,7 +1,72 @@
 # Algorithmic Thinking
 
 ## Table of Contents
-
+   - [Algorithmic Thinking Guide](#algorithmic-thinking-guide)
+   - [Study Plan](#study-plan)
+1. [1. How to Read a Problem](#1-how-to-read-a-problem)
+   - [Read for structure, not just content](#read-for-structure-not-just-content)
+   - [Annotate the constraints](#annotate-the-constraints)
+   - [Identify what's fixed and what varies](#identify-whats-fixed-and-what-varies)
+   - [Restate the problem in one sentence](#restate-the-problem-in-one-sentence)
+   - [Check the examples — then construct your own](#check-the-examples--then-construct-your-own)
+2. [2. Pattern Recognition Decision Tree](#2-pattern-recognition-decision-tree)
+   - [Secondary signals](#secondary-signals)
+3. [3. One-Pass Reasoning — Can This Be Solved in a Single Scan?](#3-one-pass-reasoning--can-this-be-solved-in-a-single-scan)
+   - [When a single pass is sufficient](#when-a-single-pass-is-sufficient)
+   - [When a single pass is NOT sufficient](#when-a-single-pass-is-not-sufficient)
+   - [The carry-forward test](#the-carry-forward-test)
+   - [One-pass with two pointers](#one-pass-with-two-pointers)
+4. [4. Element Comparison Strategies](#4-element-comparison-strategies)
+   - [Comparing element to itself at index i](#comparing-element-to-itself-at-index-i)
+   - [Comparing to element ahead (i+1, i+2)](#comparing-to-element-ahead-i1-i2)
+   - [Comparing to element behind (i-1)](#comparing-to-element-behind-i-1)
+   - [Comparing from both ends](#comparing-from-both-ends)
+5. [5. Index Management](#5-index-management)
+   - [When to start at index 0 vs 1](#when-to-start-at-index-0-vs-1)
+   - [Off-by-one reasoning](#off-by-one-reasoning)
+   - [Boundary conditions](#boundary-conditions)
+6. [6. Constraint-to-Algorithm Mapping](#6-constraint-to-algorithm-mapping)
+   - [Input size constraints](#input-size-constraints)
+   - [Value constraints](#value-constraints)
+   - [Array structure constraints](#array-structure-constraints)
+   - [String constraints](#string-constraints)
+   - [The "exactly k" trick](#the-exactly-k-trick)
+   - [Graph / tree constraints](#graph--tree-constraints)
+7. [7. Complexity Estimation](#7-complexity-estimation)
+   - [Reading Big O from code structure](#reading-big-o-from-code-structure)
+   - [The amortized argument for sliding windows](#the-amortized-argument-for-sliding-windows)
+   - [The 10^8 operations rule of thumb](#the-108-operations-rule-of-thumb)
+   - [When O(n^2) is acceptable](#when-on2-is-acceptable)
+8. [8. Interview Strategy](#8-interview-strategy)
+   - [The first 3–5 minutes: don't code yet](#the-first-35-minutes-dont-code-yet)
+   - [Clarifying questions worth asking](#clarifying-questions-worth-asking)
+   - [Thinking out loud](#thinking-out-loud)
+   - [The solution progression](#the-solution-progression)
+   - [Handling edge cases](#handling-edge-cases)
+   - [Time management](#time-management)
+   - [When stuck](#when-stuck)
+9. [Quick Reference](#quick-reference)
+   - [Pattern → Algorithm](#pattern--algorithm)
+   - [Constraint → Complexity budget](#constraint--complexity-budget)
+10. [1. Arrays & Strings](#1-arrays--strings)
+11. [2. Hash Map / Set](#2-hash-map--set)
+12. [3. Two Pointers](#3-two-pointers)
+13. [4. Sliding Window](#4-sliding-window)
+14. [5. Prefix Sum](#5-prefix-sum)
+15. [6. Binary Search](#6-binary-search)
+16. [7. Intervals](#7-intervals)
+17. [8. Math & Geometry](#8-math--geometry)
+18. [9. Bit Manipulation](#9-bit-manipulation)
+19. [10. Stack](#10-stack)
+20. [11. Linked List](#11-linked-list)
+21. [12. Binary Tree](#12-binary-tree)
+22. [13. Divide & Conquer](#13-divide--conquer)
+23. [14. Graph](#14-graph)
+24. [15. Heap / Priority Queue](#15-heap--priority-queue)
+25. [16. Backtracking](#16-backtracking)
+26. [17. Trie](#17-trie)
+27. [18. Dynamic Programming](#18-dynamic-programming)
+28. [19. Queue / Design](#19-queue--design)
 ### Algorithmic Thinking Guide
 1. [How to Read a Problem](#1-how-to-read-a-problem)
 2. [Pattern Recognition Decision Tree](#2-pattern-recognition-decision-tree)
@@ -583,6 +648,7 @@ Questions sourced from:
 |---|-------|------------|--------|
 | 26 | Remove Duplicates from Sorted Array | Easy | ✅ |
 | 27 | Remove Element | Easy | ✅ |
+| 58 | Length of Last Word | Easy | ✅ |
 | 66 | Plus One | Easy | ✅ |
 | 88 | Merge Sorted Array | Easy | ✅ |
 | 118 | Pascal's Triangle | Easy | ⬜ |
@@ -595,6 +661,9 @@ Questions sourced from:
 | 412 | Fizz Buzz | Easy | ✅ |
 | 13 | Roman to Integer | Easy | ✅ |
 | 14 | Longest Common Prefix | Easy | ✅ |
+| 1071 | Greatest Common Divisor of Strings | Easy | ✅ |
+| 1431 | Kids With the Greatest Number of Candies | Easy | ✅ |
+| 2643 | Row With Maximum Ones | Easy | ✅ |
 | 80 | Remove Duplicates from Sorted Array II | Medium | ✅ |
 | 122 | Best Time to Buy and Sell Stock II | Medium | ✅ |
 | 128 | Longest Consecutive Sequence | Medium | ✅ |
@@ -606,7 +675,7 @@ Questions sourced from:
 | 443 | String Compression | Medium | ✅ |
 | 6 | Zigzag Conversion | Medium | ✅ |
 | 36 | Valid Sudoku | Medium | ✅ |
-| 48 | Rotate Image | Medium | ⬜ |
+| 48 | Rotate Image | Medium | ✅ |
 | 49 | Group Anagrams | Medium | ✅ |
 | 53 | Maximum Subarray | Medium | ⬜ |
 | 55 | Jump Game | Medium | ⬜ |
@@ -628,8 +697,14 @@ Questions sourced from:
 | 242 | Valid Anagram | Easy | ✅ |
 | 290 | Word Pattern | Easy | ✅ |
 | 383 | Ransom Note | Easy | ✅ |
+| 771 | Jewels and Stones | Easy | ✅ |
+| 1133 | Largest Unique Number | Easy | ✅ |
+| 1189 | Maximum Number of Balloons | Easy | ✅ |
 | 1207 | Unique Number of Occurrences | Easy | ✅ |
+| 1436 | Destination City | Easy | ✅ |
+| 1832 | Check if the Sentence Is Pangram | Easy | ✅ |
 | 2215 | Find the Difference of Two Arrays | Easy | ✅ |
+| 3005 | Count Elements With Maximum Frequency | Easy | ✅ |
 | 271 | Encode and Decode Strings | Medium | ✅ |
 | 347 | Top K Frequent Elements | Medium | ✅ |
 | 451 | Sort Characters By Frequency | Medium | ✅ |
@@ -649,6 +724,11 @@ Questions sourced from:
 | 345 | Reverse Vowels of a String | Easy | ✅ |
 | 392 | Is Subsequence | Easy | ✅ |
 | 557 | Reverse Words in a String III | Easy | ✅ |
+| 917 | Reverse Only Letters | Easy | ✅ |
+| 977 | Squares of a Sorted Array | Easy | ✅ |
+| 1470 | Shuffle the Array | Easy | ✅ |
+| 1768 | Merge Strings Alternately | Easy | ✅ |
+| 2000 | Reverse Prefix of Word | Easy | ✅ |
 | 2540 | Minimum Common Value | Easy | ✅ |
 | 11 | Container With Most Water | Medium | ✅ |
 | 15 | 3Sum | Medium | ✅ |
@@ -662,9 +742,11 @@ Questions sourced from:
 
 | # | Title | Difficulty | Solved |
 |---|-------|------------|--------|
+| 28 | Find the Index of the First Occurrence in a String | Easy | ✅ |
 | 219 | Contains Duplicate II | Easy | ✅ |
 | 485 | Max Consecutive Ones | Easy | ✅ |
 | 1446 | Consecutive Characters | Easy | ✅ |
+| 2062 | Count Vowel Substrings of a String | Easy | ✅ |
 | 3 | Longest Substring Without Repeating Characters | Medium | ✅ |
 | 209 | Minimum Size Subarray Sum | Medium | ✅ |
 | 340 | Longest Substring with At Most K Distinct Characters | Medium | ✅ |
@@ -675,9 +757,11 @@ Questions sourced from:
 | 713 | Subarray Product Less Than K | Medium | ✅ |
 | 1004 | Max Consecutive Ones III | Medium | ✅ |
 | 1208 | Get Equal Substrings Within Budget | Medium | ✅ |
+| 1456 | Maximum Number of Vowels in a Substring of Given Length | Medium | ✅ |
 | 1493 | Longest Subarray of 1s After Deleting One Element | Medium | ✅ |
 | 1695 | Maximum Erasure Value | Medium | ✅ |
 | 2958 | Length of Longest Subarray With at Most K Frequency | Medium | ✅ |
+| 30 | Substring with Concatenation of All Words | Hard | ✅ |
 | 76 | Minimum Window Substring | Hard | ✅ |
 | 992 | Subarrays with K Different Integers | Hard | ✅ |
 | 2962 | Count Subarrays Where Max Element Appears at Least K Times | Hard | ✅ |
@@ -699,6 +783,7 @@ Questions sourced from:
 | 560 | Subarray Sum Equals K | Medium | ✅ |
 | 930 | Binary Subarrays with Sum | Medium | ✅ |
 | 1248 | Count Number of Nice Subarrays | Medium | ✅ |
+| 2090 | K Radius Subarray Averages | Medium | ✅ |
 
 ---
 
@@ -716,7 +801,7 @@ Questions sourced from:
 | 240 | Search a 2D Matrix II | Medium | ⬜ |
 | 875 | Koko Eating Bananas | Medium | ⬜ |
 | 2300 | Successful Pairs of Spells and Potions | Medium | ⬜ |
-| 4 | Median of Two Sorted Arrays | Hard | ⬜ |
+| 4 | Median of Two Sorted Arrays | Hard | ✅ |
 
 ---
 
@@ -738,7 +823,7 @@ Questions sourced from:
 
 | # | Title | Difficulty | Solved |
 |---|-------|------------|--------|
-| 9 | Palindrome Number | Easy | ⬜ |
+| 9 | Palindrome Number | Easy | ✅ |
 | 67 | Add Binary | Easy | ⬜ |
 | 69 | Sqrt(x) | Easy | ⬜ |
 | 168 | Excel Sheet Column Title | Easy | ⬜ |
@@ -748,11 +833,11 @@ Questions sourced from:
 | 292 | Nim Game | Easy | ⬜ |
 | 326 | Power of Three | Easy | ⬜ |
 | 43 | Multiply Strings | Medium | ⬜ |
-| 48 | Rotate Image | Medium | ⬜ |
+| 48 | Rotate Image | Medium | ✅ |
 | 50 | Pow(x, n) | Medium | ⬜ |
-| 54 | Spiral Matrix | Medium | ⬜ |
+| 54 | Spiral Matrix | Medium | ✅ |
 | 59 | Spiral Matrix II | Medium | ⬜ |
-| 73 | Set Matrix Zeroes | Medium | ⬜ |
+| 73 | Set Matrix Zeroes | Medium | ✅ |
 | 172 | Factorial Trailing Zeroes | Medium | ⬜ |
 | 204 | Count Primes | Medium | ⬜ |
 | 149 | Max Points on a Line | Hard | ⬜ |
@@ -769,6 +854,7 @@ Questions sourced from:
 | 231 | Power of Two | Easy | ⬜ |
 | 268 | Missing Number | Easy | ✅ |
 | 338 | Counting Bits | Easy | ⬜ |
+| 1342 | Number of Steps to Reduce a Number to Zero | Easy | ✅ |
 | 371 | Sum of Two Integers | Medium | ⬜ |
 | 1318 | Minimum Flips to Make a OR b Equal to c | Medium | ⬜ |
 
@@ -783,6 +869,7 @@ Questions sourced from:
 | 1047 | Remove All Adjacent Duplicates In String | Easy | ✅ |
 | 1544 | Make The String Great | Easy | ✅ |
 | 71 | Simplify Path | Medium | ✅ |
+| 735 | Asteroid Collision | Medium | ✅ |
 | 150 | Evaluate Reverse Polish Notation | Medium | ✅ |
 | 155 | Min Stack | Medium | ✅ |
 | 394 | Decode String | Medium | ✅ |
@@ -869,7 +956,7 @@ Questions sourced from:
 | 108 | Convert Sorted Array to Binary Search Tree | Easy | ⬜ |
 | 427 | Construct Quad Tree | Medium | ⬜ |
 | 148 | Sort List | Medium | ⬜ |
-| 4 | Median of Two Sorted Arrays | Hard | ⬜ |
+| 4 | Median of Two Sorted Arrays | Hard | ✅ |
 
 ---
 
@@ -953,7 +1040,7 @@ Questions sourced from:
 
 | # | Title | Difficulty | Solved |
 |---|-------|------------|--------|
-| 70 | Climbing Stairs | Easy | ⬜ |
+| 70 | Climbing Stairs | Easy | ✅ |
 | 118 | Pascal's Triangle | Easy | ⬜ |
 | 338 | Counting Bits | Easy | ⬜ |
 | 746 | Min Cost Climbing Stairs | Easy | ⬜ |

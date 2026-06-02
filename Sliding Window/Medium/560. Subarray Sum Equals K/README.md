@@ -3,6 +3,13 @@
 **Difficulty:** Medium
 **Link:** https://leetcode.com/problems/subarray-sum-equals-k/
 
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+
 ## 1. Algorithm Used
 
 Prefix sum with a complement hashmap — for each running prefix sum `curr`, we look up how many previous prefix sums equal `curr - k`, because any such prefix marks the start of a subarray that sums to exactly `k`.

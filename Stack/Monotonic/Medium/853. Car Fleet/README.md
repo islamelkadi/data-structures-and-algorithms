@@ -1,3 +1,15 @@
+# 853. Car Fleet
+
+**Difficulty:** Medium
+**Link:** https://leetcode.com/problems/car-fleet/
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+5. [5. Time & Space Complexity](#5-time--space-complexity)
+
 ## 1. Algorithm Used
 
 Monotonic stack with time-to-target calculation.
@@ -20,34 +32,37 @@ Monotonic stack with time-to-target calculation.
 Pair positions with speeds, sort by position descending (closest to target first). For each car, calculate time to reach target. If it's slower than the fleet ahead (top of stack), it's a new fleet — push. Otherwise it merges — skip.
 
 ```python
-zipped_positions_speed = [(x1, x2) for x1, x2 in zip(position, speed)]
-zipped_positions_speed.sort(reverse=True)
-
-stack = []
-for car in zipped_positions_speed:
-    current_time = (target - car[0]) / float(car[-1])
-    if not stack or current_time > stack[-1]:
-        stack.append(current_time)
-return len(stack)
-```
-
-Example with `target=12, position=[10,8,0,5,3], speed=[2,4,1,1,3]`:
-```
-Sorted by position desc: [(10,2), (8,4), (5,1), (3,3), (0,1)]
-
-(10,2): time = 1.0  → stack empty, push. Stack = [1.0]
-(8,4):  time = 1.0  → 1.0 > 1.0? No → merges. Stack = [1.0]
-(5,1):  time = 7.0  → 7.0 > 1.0? Yes → new fleet. Stack = [1.0, 7.0]
-(3,3):  time = 3.0  → 3.0 > 7.0? No → merges. Stack = [1.0, 7.0]
-(0,1):  time = 12.0 → 12.0 > 7.0? Yes → new fleet. Stack = [1.0, 7.0, 12.0]
-
-Result: 3 fleets
+class Solution(object):
+    def carFleet(self, target, position, speed):
+        zipped_positions_speed = [(x1, x2) for x1, x2 in zip(position, speed)]
+        zipped_positions_speed.sort(reverse=True)
+        stack = []
+        for car in zipped_positions_speed:
+            current_time = (target - car[0]) / float(car[-1])
+            if not stack or current_time > stack[-1]:
+                stack.append(current_time)
+        return len(stack)
 ```
 
 Python 2 gotcha: `/ float(car[-1])` ensures float division. Without it, `4 / 3 = 1` in Python 2 instead of `1.333`.
 
+### Dry Run Table
+Input: `target = 12`, `position = [10, 8, 0, 5, 3]`, `speed = [2, 4, 1, 1, 3]`
+*Sorted by position descending*: `[(10, 2), (8, 4), (5, 1), (3, 3), (0, 1)]`
+
+| Step / Car | Position | Speed | Time to Target `(target - pos) / speed` | Stack Top `stack[-1]` | Check: `time > stack[-1]`? | Action | Stack State | Fleets (Stack Size) |
+|------------|----------|-------|----------------------------------------|-----------------------|----------------------------|--------|-------------|---------------------|
+| *init*     | —        | —     | —                                      | —                     | —                          | —      | `[]`        | 0                   |
+| 1          | 10       | 2     | `(12 - 10) / 2 = 1.0`                  | — (empty)             | — (always push first)      | Push   | `[1.0]`     | 1                   |
+| 2          | 8        | 4     | `(12 - 8) / 4 = 1.0`                   | 1.0                   | `1.0 > 1.0` (False)        | Merge  | `[1.0]`     | 1                   |
+| 3          | 5        | 1     | `(12 - 5) / 1 = 7.0`                   | 1.0                   | `7.0 > 1.0` (True)         | Push   | `[1.0, 7.0]`| 2                   |
+| 4          | 3        | 3     | `(12 - 3) / 3 = 3.0`                   | 7.0                   | `3.0 > 7.0` (False)        | Merge  | `[1.0, 7.0]`| 2                   |
+| 5          | 0        | 1     | `(12 - 0) / 1 = 12.0`                  | 7.0                   | `12.0 > 7.0` (True)        | Push   | `[1.0, 7.0, 12.0]` | 3            |
+| *result*   | —        | —     | —                                      | —                     | —                          | Finish | —           | **3**               |
+
+---
+
 ## 5. Time & Space Complexity
 
-Time: O(n log n) — sorting dominates. The stack loop is O(n) since each car is visited once with no popping.
-
-Space: O(n) — for the zipped list and the stack.
+- **Time Complexity**: O(n log n) — sorting dominates. The stack loop is O(n) since each car is visited once with no popping.
+- **Space Complexity**: O(n) — for the zipped list and the stack.

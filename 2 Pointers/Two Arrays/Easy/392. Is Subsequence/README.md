@@ -3,27 +3,39 @@
 **Difficulty:** Easy
 **Link:** https://leetcode.com/problems/is-subsequence/
 
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+5. [5. Time & Space Complexity](#5-time--space-complexity)
+
 ## 1. Algorithm Used
 
-Same-direction two pointers: slow pointer advances through `s` only on a match, fast pointer iterates through every character of `t`.
+Single-pointer greedy scan with slow pointer
 
 ## 2. How to Recognize the Pattern
 
-- "Does s appear in t in order, with possible gaps?" → subsequence check → slow pointer on the pattern, fast pointer on the text.
-- Characters must appear in the same relative order → scan both strings left to right, advance the pattern pointer only on a match.
-- Early termination possible → if the pattern pointer reaches `len(s)`, the answer is immediately true.
+- "Is s a subsequence of t?" → characters of s must appear in t in order, but not necessarily contiguously.
+- You're matching one sequence against another in order → single pointer on s, iterate through t.
+- Greedy works because the earliest match is always the best choice — it leaves the most room for future matches.
 
 ## 3. Why This Algorithm Fits
 
-- O(n) time — one pass through `t` (length n), at most one pass through `s` (length m).
-- O(1) space — only a single integer pointer, no extra data structures.
-- Order is preserved automatically because `slow_pointer` only advances forward, so it can never match an out-of-order character.
+- One pass through t is enough — no need for backtracking or dynamic programming.
+- The pointer on s only advances on a match, naturally preserving order.
+- Early return when all characters are matched avoids scanning the rest of t.
 
 ## 4. How It Works
 
-`slow_pointer` tracks how many characters of `s` have been matched so far. For each character in `t`, if it equals `s[slow_pointer]`, increment `slow_pointer`. If `slow_pointer` reaches `len(s)`, all characters of `s` were found in order inside `t`, so return `True`. If the loop ends without that happening, return `False`.
+Keep a pointer on s starting at 0. Walk through every character in t. When a character matches `s[slow_pointer]`, advance the pointer. If the pointer reaches the end of s, all characters were found in order — return True. If you finish t without matching all of s, return False.
 
 ```python
+if len(s) > len(t):
+    return False
+if not s:
+    return True
+
 slow_pointer = 0
 for char in t:
     if char == s[slow_pointer]:
@@ -33,14 +45,21 @@ for char in t:
 return False
 ```
 
-The key insight is that order is enforced implicitly — `slow_pointer` never moves backward, so a match at position `i` in `t` can only be used for the current character of `s`, not a later one.
-
+### Dry Run Table
 Input: `s = "ace"`, `t = "abcde"`
 
 | char (t) | s[slow_pointer] | match? | slow_pointer |
 |----------|-----------------|--------|--------------|
-| a | a | yes | 1 |
-| b | c | no | 1 |
-| c | c | yes | 2 |
-| d | e | no | 2 |
-| e | e | yes | 3 = len(s) → return True |
+| a        | a               | yes    | 1            |
+| b        | c               | no     | 1            |
+| c        | c               | yes    | 2            |
+| d        | e               | no     | 2            |
+| e        | e               | yes    | 3 = len(s) → return True |
+
+---
+
+## 5. Time & Space Complexity
+
+Time: O(n) where n is the length of t — single pass through t, each comparison is O(1).
+
+Space: O(1) — only a single pointer variable, no extra data structures.

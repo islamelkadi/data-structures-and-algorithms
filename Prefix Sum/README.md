@@ -1,5 +1,24 @@
 # Prefix Sum
 
+
+## Table of Contents
+1. [1. What It Is](#1-what-it-is)
+2. [2. When to Use It — Pattern Recognition](#2-when-to-use-it--pattern-recognition)
+   - [Keywords that signal this algorithm:](#keywords-that-signal-this-algorithm)
+   - [Problem characteristics:](#problem-characteristics)
+3. [3. Core Technique(s)](#3-core-techniques)
+   - [Technique A: Basic Prefix Sum (Range Queries)](#technique-a-basic-prefix-sum-range-queries)
+   - [Technique B: Prefix Sum + Hashmap (Subarray Sum = K)](#technique-b-prefix-sum--hashmap-subarray-sum--k)
+   - [Technique C: Prefix + Suffix (Product Except Self)](#technique-c-prefix--suffix-product-except-self)
+   - [Technique D: Pivot Index (Equal Left and Right Sum)](#technique-d-pivot-index-equal-left-and-right-sum)
+   - [Technique E: 2D Prefix Sum (Submatrix Queries)](#technique-e-2d-prefix-sum-submatrix-queries)
+4. [4. Decision Framework](#4-decision-framework)
+5. [5. One-Pass vs Multi-Pass Reasoning](#5-one-pass-vs-multi-pass-reasoning)
+6. [6. Index and Pointer Management](#6-index-and-pointer-management)
+7. [7. Complexity Patterns](#7-complexity-patterns)
+8. [8. When to Use Padding vs Not](#8-when-to-use-padding-vs-not)
+9. [9. Common Pitfalls](#9-common-pitfalls)
+
 ## 1. What It Is
 
 Prefix Sum is a preprocessing technique that converts an array into a cumulative sum array, enabling any range sum query to be answered in O(1) instead of O(n). The core identity is:
@@ -108,14 +127,44 @@ for i, x in enumerate(arr):
 return -1
 ```
 
+### Technique E: 2D Prefix Sum (Submatrix Queries)
+
+Precompute cumulative sums across both dimensions of a 2D matrix to query any arbitrary submatrix sum in O(1) time.
+
+```python
+m, n = len(matrix), len(matrix[0])
+# 1-indexed padding on top and left to eliminate boundary checks
+prefix = [[0] * (n + 1) for _ in range(m + 1)]
+
+# Pass 1: Row-wise prefix accumulation
+for r in range(m):
+    for c in range(n):
+        prefix[r + 1][c + 1] = prefix[r + 1][c] + matrix[r][c]
+
+# Pass 2: Column-wise prefix accumulation (summing columns down)
+for c in range(1, n + 1):
+    for r in range(1, m + 1):
+        prefix[r][c] += prefix[r - 1][c]
+
+# Query submatrix sum from (r1, c1) to (r2, c2) (0-indexed, inclusive)
+def sumRegion(r1, c1, r2, c2):
+    return prefix[r2 + 1][c2 + 1] - prefix[r1][c2 + 1] - prefix[r2 + 1][c1] + prefix[r1][c1]
+```
+
+Use when: "2D grid submatrix range sums", "multiple submatrix queries on an immutable matrix".
+
 ## 4. Decision Framework
 
 ```
-Do you need sum of a fixed range [i..j]?
+Do you need sum of a fixed range [i..j] in 1D?
 └── Basic prefix array: O(1) per query after O(n) build
+
+Do you need sum of an arbitrary submatrix [r1, c1] to [r2, c2] in 2D?
+└── 2D prefix array (padded left/top): O(1) per query after O(m*n) build
 
 Do you need to count subarrays with sum = k?
 └── Prefix sum + hashmap: O(n) total
+```
 
 Do you need a value derived from all elements except self?
 └── Prefix product + suffix product: O(n), O(1) extra space

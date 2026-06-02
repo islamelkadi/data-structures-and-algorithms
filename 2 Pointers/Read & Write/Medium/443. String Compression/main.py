@@ -1,21 +1,27 @@
-class Solution(object):
-    def compress(self, chars):
-        """
-        :type chars: List[str]
-        :rtype: int
-        """
+from typing import List
 
-        left = 0
-        compressed_string = ""
-        flush = lambda char, length: char + (str(length) if length > 1 else "")
-
-        for right in range(len(chars)):
-            if chars[right] != chars[left]:
-                compressed_string += flush(chars[left], right - left)
-                left = right
-            if right == len(chars) - 1:
-                compressed_string += flush(chars[left], right - left + 1)
-
-        for i, char in enumerate(compressed_string):
-            chars[i] = char
-        return len(compressed_string)
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        write = 0
+        read = 0
+        
+        while read < len(chars):
+            char = chars[read]
+            group_length = 0
+            
+            # Count the length of the current group
+            while read < len(chars) and chars[read] == char:
+                read += 1
+                group_length += 1
+            
+            # Write the character
+            chars[write] = char
+            write += 1
+            
+            # Write the count if it's greater than 1
+            if group_length > 1:
+                for digit in str(group_length):
+                    chars[write] = digit
+                    write += 1
+                    
+        return write

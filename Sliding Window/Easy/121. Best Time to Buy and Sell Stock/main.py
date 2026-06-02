@@ -1,3 +1,4 @@
+# SLIDING WINDOW
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         # Can this be done in a single shot O(N) and Space Complexity of O(1)

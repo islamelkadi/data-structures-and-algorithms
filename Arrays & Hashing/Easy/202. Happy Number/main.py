@@ -1,9 +1,15 @@
-class Solution:
-    def isHappy(self, n: int) -> bool:
-        seen = set()
+class Solution(object):
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        
+        seen_hashset = set()
         while n != 1:
-            if n in seen:
+            if n in seen_hashset:
                 return False
-            seen.add(n)
-            n = sum(int(d) ** 2 for d in str(n))
-        return True
+            seen_hashset.add(n)
+            n = sum([int(x)**2 for x in str(n)])
+        else:
+            return True

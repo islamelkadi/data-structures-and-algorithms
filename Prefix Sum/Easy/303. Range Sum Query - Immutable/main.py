@@ -8,6 +8,11 @@ class NumArray:
     def sumRange(self, left: int, right: int) -> int:
         if left == 0:
             return self._prefix_sum[right]
+        # The left - 1 is because you do not want to include left
+        # this is because you would essentially subtracting the
+        # prefix sum with the left pointer being considered, when
+        # it should be up until the left pointer but not including
+        # it.
         return self._prefix_sum[right] - self._prefix_sum[left - 1]
 
 

@@ -2,6 +2,13 @@
 **Difficulty:** Hard
 **Link:** https://leetcode.com/problems/count-subarrays-where-max-element-appears-at-least-k-times/
 
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+
 ## 1. Algorithm Used
 Sliding window counting subarrays where the global max appears at least k times; count valid left boundaries using `res += left`.
 

@@ -1,7 +1,14 @@
 # 167. Two Sum II - Input Array Is Sorted
 
 **Difficulty:** Medium
-**Link:** https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+**Link:** https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+5. [5. Time & Space Complexity](#5-time--space-complexity)
 
 ## 1. Algorithm Used
 
@@ -9,39 +16,51 @@ Opposite-direction two pointers on a sorted array: converge based on whether the
 
 ## 2. How to Recognize the Pattern
 
-- "Sorted array, find two numbers that sum to target" → sorted input enables two-pointer convergence → no hash map needed.
-- Exactly one solution is guaranteed → the pointers will always find it before crossing.
-- 1-indexed output required → add 1 to both pointer values before returning.
+- **Sorted array search**: "Find two numbers in a sorted array that sum to target" suggests using two pointers at both ends of the array.
+- **Monotonic relationship**: Since the array is sorted, incrementing the left pointer increases the sum, and decrementing the right pointer decreases the sum.
+- **1-indexed result**: The output expects 1-based indexing instead of the standard 0-based array index.
 
 ## 3. Why This Algorithm Fits
 
-- O(n) time — each pointer moves at most n steps total; they never backtrack.
-- O(1) space — only two integer pointers, no auxiliary data structure.
-- The sorted order is the key invariant: if the sum is too small, the only way to increase it is to advance `left`; if too large, the only way to decrease it is to retreat `right`.
+- The pointers move inward without backtracking, ensuring a single linear scan of $O(N)$ time.
+- No hash map or other data structures are needed, achieving $O(1)$ auxiliary space.
 
 ## 4. How It Works
 
-Place `left` at index 0 and `right` at the last index. Compute `numbers[left] + numbers[right]`. If the sum is less than `target`, advance `left` to get a larger value. If greater, retreat `right` to get a smaller value. When the sum equals `target`, return `[left + 1, right + 1]` (1-indexed).
+1. Initialize `left = 0` and `right = len(numbers) - 1`.
+2. While `left < right`:
+   - Calculate `summation = numbers[left] + numbers[right]`.
+   - If `summation < target`, increment `left` to increase the sum.
+   - If `summation > target`, decrement `right` to decrease the sum.
+   - If `summation == target`, return `[left + 1, right + 1]`.
 
 ```python
-left = 0
-right = len(numbers) - 1
-while left < right:
-    summation = numbers[left] + numbers[right]
-    if summation < target:
-        left += 1
-    elif summation > target:
-        right -= 1
-    else:
-        return [left + 1, right + 1]
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        left = 0
+        right = len(numbers) - 1
+        while left < right:
+            summation = numbers[left] + numbers[right]
+            if summation < target:
+                left += 1
+            elif summation > target:
+                right -= 1
+            else:
+                return [left + 1, right + 1]
 ```
 
-Because exactly one solution is guaranteed, the loop will always hit the `else` branch before `left` and `right` cross — no need for a fallback return.
-
+### Dry Run Table
 Input: `numbers = [2, 7, 11, 15]`, `target = 9`
 
 | left | right | numbers[left] | numbers[right] | sum | action |
 |------|-------|---------------|----------------|-----|--------|
-| 0 | 3 | 2 | 15 | 17 | >target → right-- |
-| 0 | 2 | 2 | 11 | 13 | >target → right-- |
-| 0 | 1 | 2 | 7 | 9 | ==target → return [1, 2] |
+| 0    | 3     | 2             | 15             | 17  | $> 9 \to$ `right--` |
+| 0    | 2     | 2             | 11             | 13  | $> 9 \to$ `right--` |
+| 0    | 1     | 2             | 7              | 9   | $== 9 \to$ Return `[1, 2]` |
+
+---
+
+## 5. Time & Space Complexity
+
+- **Time Complexity**: $O(N)$ where $N$ is the number of elements in `numbers`. Each pointer moves at most $N$ times.
+- **Space Complexity**: $O(1)$ auxiliary space as we only use two integer indices.

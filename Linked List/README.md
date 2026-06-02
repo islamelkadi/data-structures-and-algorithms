@@ -1,5 +1,22 @@
 # Linked List
 
+
+## Table of Contents
+1. [1. What It Is](#1-what-it-is)
+2. [2. When to Use It — Pattern Recognition](#2-when-to-use-it--pattern-recognition)
+   - [Keywords that signal this algorithm:](#keywords-that-signal-this-algorithm)
+   - [Problem characteristics:](#problem-characteristics)
+3. [3. Core Technique(s)](#3-core-techniques)
+   - [Technique A: Single Pointer Traversal](#technique-a-single-pointer-traversal)
+   - [Technique B: Fast/Slow Pointers (Floyd's Algorithm)](#technique-b-fastslow-pointers-floyds-algorithm)
+   - [Technique C: Pointer Reversal (In-Place Reverse)](#technique-c-pointer-reversal-in-place-reverse)
+   - [Technique D: Two-List Merge](#technique-d-two-list-merge)
+4. [4. Decision Framework](#4-decision-framework)
+5. [5. One-Pass vs Multi-Pass Reasoning](#5-one-pass-vs-multi-pass-reasoning)
+6. [6. Index and Pointer Management](#6-index-and-pointer-management)
+7. [7. Complexity Patterns](#7-complexity-patterns)
+8. [8. Common Pitfalls](#8-common-pitfalls)
+
 ## 1. What It Is
 
 Linked list problems require manipulating nodes connected by pointers rather than indexed array positions. The key challenge is that you can't jump to an arbitrary position — you must traverse from the head. Most linked list algorithms use one of three approaches: single-pointer traversal (scan and modify), fast/slow pointers (Floyd's algorithm for structural properties), or pointer reversal (in-place restructuring without extra space).

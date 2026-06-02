@@ -1,3 +1,11 @@
+# We're trying to find the MAXIMUM LENGTH of a subarray
+# When we find a prefix_sum - k in curr, we calculate length as: right - curr[seen]
+# Setting curr[0] = -1 helps us handle the case where the subarray starts from index 0
+# Example: if nums = [1,2,3] and k = 6, when we reach index 2, prefix_sum = 6
+# We look for prefix_sum - k = 6 - 6 = 0
+# Length = 2 - (-1) = 3, giving us the correct length for [1,2,3]
+
+# THIS IS A LENGTH CALCUATION PROBLEM
 class Solution:
     def maxSubArrayLen(self, nums: List[int], k: int) -> int:
 

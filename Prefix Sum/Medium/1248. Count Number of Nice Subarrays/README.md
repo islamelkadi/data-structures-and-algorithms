@@ -1,3 +1,10 @@
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+5. [5. Notes & Lessons Learned](#5-notes--lessons-learned)
+
 ## 1. Algorithm Used
 
 Prefix sum of odd-number counts with hashmap frequency tracking to count subarrays with exactly k odd numbers.
@@ -42,3 +49,32 @@ Input: `nums = [1, 1, 2, 1, 1]`, `k = 3`
 | 1 | 1 | 3 | 0 | 1 | 1 | {0:1,1:1,2:2,3:1} |
 | 1 | 1 | 4 | 1 | 1 | 2 | {0:1,1:1,2:2,3:1,4:1} |
 | result | | | | | 2 | |
+
+## 5. Notes & Lessons Learned
+
+> [!NOTE]
+> **Difference Between "Max Size Subarray" vs "Count Subarrays"**:
+> - **Max Size (e.g., Problem 325)**: We want the maximum size of a subarray summing to $k$. In this case, we store the *earliest index* of each prefix sum in the hash map and measure index differences (`right - seen[prefix_sum - k]`).
+> - **Count Subarrays (this problem)**: We want to find the *number* of valid subarrays. Thus, we use the hash map to count the *frequency of occurrences* of each prefix sum. When `prefix_sum - k` is found in our frequency map, we add `prefix_count[prefix_sum - k]` to our running total.
+>
+> **Significance of `curr[0] = 1`**:
+> We initialize the frequency map with `prefix_count[0] = 1` (meaning "we have seen zero odd numbers once" at the start). This is critical to ensure that any valid subarray starting at index `0` is properly counted when `prefix_sum` exactly equals $k$.
+>
+> **Alternative Sliding Window Approach (At-Most-$K$)**:
+> We can also solve this using the **at-most-$K$** sliding window pattern:
+> $$\text{exactly}(K) = \text{at\_most}(K) - \text{at\_most}(K - 1)$$
+> Here, `at_most(k)` finds the number of subarrays with at most $k$ odd numbers in $O(N)$ time and $O(1)$ space:
+>
+> ```python
+> def numberOfSubarrays(self, nums: List[int], k: int) -> int:
+>     def numberOfAtMostSubarrays(nums, k):
+>         left = curr = ans = 0
+>         for right in range(len(nums)):
+>             curr += nums[right] % 2
+>             while curr > k and left <= right:
+>                 curr -= nums[left] % 2
+>                 left += 1
+>             ans += right - left + 1
+>         return ans
+>     return numberOfAtMostSubarrays(nums, k) - numberOfAtMostSubarrays(nums, k - 1)
+> ```

@@ -1,6 +1,14 @@
 # 26. Remove Duplicates from Sorted Array
+
 **Difficulty:** Easy
 **Link:** https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+5. [5. Time & Space Complexity](#5-time--space-complexity)
 
 ## 1. Algorithm Used
 
@@ -8,38 +16,53 @@ Read/Write two pointers (fast & slow).
 
 ## 2. How to Recognize the Pattern
 
-- "Remove duplicates in-place" + sorted array → read/write pointers.
-- The array is sorted, so duplicates are always adjacent — no need for a hash set.
-- O(1) space constraint rules out building a new array; in-place modification with a write pointer is the right move.
+- **Remove duplicates in-place**: Modifying the array in-place with a strict space constraint points to the read/write two pointers design.
+- **Sorted array**: Since duplicates are always adjacent, comparing `nums[slow]` with `nums[fast]` is sufficient to detect duplicate values.
 
 ## 3. Why This Algorithm Fits
 
-- O(n) time — single pass through the array.
-- O(1) space — no extra data structures, just two index variables.
-- Sorted input guarantees that comparing `nums[slow]` to `nums[fast]` is enough to detect a new unique value.
+- **$O(N)$ time**: Requires a single pass through the array.
+- **$O(1)$ space**: Runs entirely in-place, using only two index variables.
+- Sorted input guarantees that we only ever write each unique element once, without needing a hash set.
 
 ## 4. How It Works
 
-`slow` is the write pointer — it marks the boundary of the deduplicated prefix. `fast` scans every element. When `fast` finds a value different from `nums[slow]`, a new unique element has been found: advance `slow` and overwrite `nums[slow]` with it.
+`slow` is the write pointer, which tracks the boundary of the deduplicated prefix. `fast` is the read pointer scanning each element of the array.
+1. When `nums[fast]` is different from `nums[slow]`, we have encountered a new unique value.
+2. Increment `slow` by 1 and write the value `nums[fast]` to `nums[slow]`.
+3. The count of unique elements is `slow + 1`.
 
 ```python
-slow = 0
-for fast in range(len(nums)):
-    if nums[slow] != nums[fast]:
-        slow += 1
-        nums[slow] = nums[fast]
-return slow + 1
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        slow = 0
+        for fast in range(len(nums)):
+            if nums[slow] != nums[fast]:
+                slow += 1
+                nums[slow] = nums[fast]
+        return slow + 1
 ```
 
-At the end, `slow` is the index of the last unique element, so the count of unique elements is `slow + 1`. The elements beyond that index don't matter.
-
+### Dry Run Table
 Input: `nums = [1, 1, 2, 3, 3]`
 
-| fast | nums[fast] | slow | nums[slow] | action | array |
-|------|------------|------|------------|--------|-------|
-| 0 | 1 | 0 | 1 | same → skip | [1,1,2,3,3] |
-| 1 | 1 | 0 | 1 | same → skip | [1,1,2,3,3] |
-| 2 | 2 | 0 | 1 | diff → slow=1, write 2 | [1,2,2,3,3] |
-| 3 | 3 | 1 | 2 | diff → slow=2, write 3 | [1,2,3,3,3] |
-| 4 | 3 | 2 | 3 | same → skip | [1,2,3,3,3] |
-| result | | 2 | | return slow+1=3 | |
+| fast | nums[fast] | slow | nums[slow] | action | array state |
+|---|---|---|---|---|---|
+| 0 | 1 | 0 | 1 | same $\to$ skip | `[1, 1, 2, 3, 3]` |
+| 1 | 1 | 0 | 1 | same $\to$ skip | `[1, 1, 2, 3, 3]` |
+| 2 | 2 | 0 | 1 | diff $\to$ `slow = 1`, write 2 | `[1, 2, 2, 3, 3]` |
+| 3 | 3 | 1 | 2 | diff $\to$ `slow = 2`, write 3 | `[1, 2, 3, 3, 3]` |
+| 4 | 3 | 2 | 3 | same $\to$ skip | `[1, 2, 3, 3, 3]` |
+
+Result: `3` (First 3 elements: `[1, 2, 3]`)
+
+---
+
+## 5. Time & Space Complexity
+
+- **Time Complexity**: $O(N)$ where $N$ is the number of elements in `nums`. We perform a single traversal of the input array.
+- **Space Complexity**: $O(1)$ auxiliary space as we modify the array in-place.

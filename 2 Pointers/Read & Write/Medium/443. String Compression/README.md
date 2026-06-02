@@ -1,63 +1,86 @@
+# 443. String Compression
+
+**Difficulty:** Medium
+**Link:** https://leetcode.com/problems/string-compression/
+
+## Table of Contents
+1. [1. Algorithm Used](#1-algorithm-used)
+2. [2. How to Recognize the Pattern](#2-how-to-recognize-the-pattern)
+3. [3. Why This Algorithm Fits](#3-why-this-algorithm-fits)
+4. [4. How It Works](#4-how-it-works)
+5. [5. Time & Space Complexity](#5-time--space-complexity)
+
 ## 1. Algorithm Used
 
-Two-pointer group detection with flush-on-change.
+Two-pointer in-place string compression. We use a `read` pointer to iterate over groups of consecutive matching characters, and a `write` pointer to modify the array in-place.
 
 ## 2. How to Recognize the Pattern
 
 - "Compress consecutive groups in-place" → two pointers to track group boundaries.
-- `left` marks the start of a group, `right` scans forward until the character changes.
-- Run-length encoding — count consecutive duplicates and write `char + count`.
+- "You must write your solution using only O(1) extra space" → in-place modification using a `write` pointer that trailing-follows the `read` pointer.
+- Run-length encoding — count consecutive duplicates and overwrite existing indexes.
 
 ## 3. Why This Algorithm Fits
 
-- Two pointers naturally track group start and end without extra data structures.
-- The lambda extracts the repeated flush logic — write the character, and the count only if > 1.
-- Writing back into `chars` at the end satisfies the in-place requirement.
+- The `read` pointer scans forward to find boundaries of repeating character blocks.
+- The `write` pointer updates the original array at the correct positions. Because the compressed string length is always less than or equal to the uncompressed group length, the `write` pointer never overtakes the `read` pointer, avoiding corruption.
+- No auxiliary string builders or arrays are used, resulting in true O(1) extra space.
 
 ## 4. How It Works
 
-`left` stays at the start of the current group. `right` scans forward. When `chars[right]` differs from `chars[left]`, flush the group (character + length if > 1) and move `left` to `right`. At the end of the array, flush the final group. Then overwrite `chars` with the compressed result.
+1. Initialize `write = 0` and `read = 0`.
+2. While `read < len(chars)`:
+   - Save the current character `char = chars[read]`.
+   - Scan forward and increment `read` as long as `chars[read] == char` to measure `group_length`.
+   - Write `char` to `chars[write]` and increment `write`.
+   - If `group_length > 1`, convert `group_length` to string and write each digit to `chars[write]`, incrementing `write` for each digit.
+3. Return `write` (the new length of the compressed array).
 
 ```python
-left = 0
-compressed_string = ""
-flush = lambda char, length: char + (str(length) if length > 1 else "")
+from typing import List
 
-for right in range(len(chars)):
-    if chars[right] != chars[left]:
-        compressed_string += flush(chars[left], right - left)
-        left = right
-    if right == len(chars) - 1:
-        compressed_string += flush(chars[left], right - left + 1)
-
-for i, char in enumerate(compressed_string):
-    chars[i] = char
-return len(compressed_string)
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        write = 0
+        read = 0
+        
+        while read < len(chars):
+            char = chars[read]
+            group_length = 0
+            
+            # Count the length of the current group
+            while read < len(chars) and chars[read] == char:
+                read += 1
+                group_length += 1
+            
+            # Write the character
+            chars[write] = char
+            write += 1
+            
+            # Write the count if it's greater than 1
+            if group_length > 1:
+                for digit in str(group_length):
+                    chars[write] = digit
+                    write += 1
+                    
+        return write
 ```
 
-Example with `chars = ["a","a","b","b","c","c","c"]`:
-- right=0,1: same as left(a), skip
-- right=2: `b != a` → flush `"a2"`, left=2
-- right=3: same as left(b), skip
-- right=4: `c != b` → flush `"b2"`, left=4
-- right=6: end of array → flush `"c3"`
-- compressed_string = `"a2b2c3"`
-- Write back into chars, return 6
-
+### Dry Run Table
 Input: `chars = ["a","a","b","b","c","c","c"]`
 
-| right | chars[right] | chars[left] | match? | compressed_string | left |
-|-------|-------------|-------------|--------|-------------------|------|
-| 0 | a | a | yes | "" | 0 |
-| 1 | a | a | yes | "" | 0 |
-| 2 | b | a | no → flush "a2" | "a2" | 2 |
-| 3 | b | b | yes | "a2" | 2 |
-| 4 | c | b | no → flush "b2" | "a2b2" | 4 |
-| 5 | c | c | yes | "a2b2" | 4 |
-| 6 | c | c | yes + end → flush "c3" | "a2b2c3" | 4 |
+| group | char | read (initial) | read (after count) | group_length | Action Taken | chars State (modified portion) | write (after step) |
+|-------|------|----------------|--------------------|--------------|--------------|--------------------------------|-------------------|
+| *init*| -    | 0              | 0                  | -            | -            | `["a","a","b","b","c","c","c"]` | 0                 |
+| 1     | 'a'  | 0              | 2                  | 2            | Write 'a', write '2' | `["a", "2", ...]` | 2                 |
+| 2     | 'b'  | 2              | 4                  | 2            | Write 'b', write '2' | `["a", "2", "b", "2", ...]` | 4                 |
+| 3     | 'c'  | 4              | 7                  | 3            | Write 'c', write '3' | `["a", "2", "b", "2", "c", "3", "c"]` | 6            |
+
+**Final Result**: `write = 6`, compressed array prefix = `["a", "2", "b", "2", "c", "3"]`.
+
+---
 
 ## 5. Time & Space Complexity
 
-Time: O(n) — single pass through chars, plus O(n) to write back. Each element visited at most twice.
-
-Space: O(n) — for `compressed_string`. Could be O(1) by writing directly into `chars` with a write pointer instead of building a separate string, but this approach is more readable.
+- **Time Complexity**: O(N) where N is the length of `chars`. Each character is visited at most twice (once by the `read` pointer and once when writing/converting).
+- **Space Complexity**: O(1) auxiliary space as we modify the input array in-place without any extra space except for a few variables.
